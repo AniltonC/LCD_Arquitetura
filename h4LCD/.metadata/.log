@@ -1,0 +1,87 @@
+!SESSION 2019-11-28 02:18:33.596 -----------------------------------------------
+eclipse.buildId=3.2.0.201603041649
+java.version=1.7.0_76
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product com.somniumtech.branding.kds.ide
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.somniumtech.branding.kds.ide
+
+!ENTRY com.processorexpert.core.ide.wizard.ui 2 0 2019-11-28 02:18:48.633
+!MESSAGE External elements location /opt/Freescale/KDS_v3/eclipse/ProcessorExpert/BoardConfigurations/wizard_data does not exist
+
+!ENTRY com.processorexpert.core.ide.wizard.ui 2 0 2019-11-28 02:19:08.227
+!MESSAGE External elements location /opt/Freescale/KDS_v3/eclipse/ProcessorExpert/BoardConfigurations/wizard_data does not exist
+
+!ENTRY org.eclipse.cdt.core 1 0 2019-11-28 02:20:07.381
+!MESSAGE Indexed 'LCD' (2 sources, 19 headers) in 1.65 sec: 1,359 declarations; 2,737 references; 0 unresolved inclusions; 58 syntax errors; 23 unresolved names (0.56%)
+!SESSION 2019-11-28 02:47:49.290 -----------------------------------------------
+eclipse.buildId=3.2.0.201603041649
+java.version=1.7.0_76
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product com.somniumtech.branding.kds.ide
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.somniumtech.branding.kds.ide
+
+!ENTRY org.eclipse.core.resources 2 10035 2019-11-28 02:48:00.035
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.processorexpert.core.ide.wizard.ui 2 0 2019-11-28 02:48:06.065
+!MESSAGE External elements location /opt/Freescale/KDS_v3/eclipse/ProcessorExpert/BoardConfigurations/wizard_data does not exist
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2019-11-28 02:54:04.974
+!MESSAGE Request monitor: 'Sequence "", result for executing step #0 = Status CANCEL: com.pemicro.debug.gdbjtag.pne code=1 PEmicro GDB Launch Failure : Illegal Device Type (). See -devicelist commandline parameter. If run from Eclipse, check the device settings in the launch Debug Configuration. Halting. null' resulted in a cancel status: Status CANCEL: com.pemicro.debug.gdbjtag.pne code=1 PEmicro GDB Launch Failure : Illegal Device Type (). See -devicelist commandline parameter. If run from Eclipse, check the device settings in the launch Debug Configuration. Halting. null, even though the request is not set to cancel.
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2019-11-28 02:54:04.975
+!MESSAGE Request monitor: 'Sequence "Initializing debugger services", result for executing step #0 = Status CANCEL: com.pemicro.debug.gdbjtag.pne code=1 PEmicro GDB Launch Failure : Illegal Device Type (). See -devicelist commandline parameter. If run from Eclipse, check the device settings in the launch Debug Configuration. Halting. null' resulted in a cancel status: Status CANCEL: com.pemicro.debug.gdbjtag.pne code=1 PEmicro GDB Launch Failure : Illegal Device Type (). See -devicelist commandline parameter. If run from Eclipse, check the device settings in the launch Debug Configuration. Halting. null, even though the request is not set to cancel.
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2019-11-28 02:54:04.976
+!MESSAGE Request monitor: 'RequestMonitor (org.eclipse.cdt.dsf.concurrent.RequestMonitorWithProgress@59b67125): Status CANCEL: com.pemicro.debug.gdbjtag.pne code=1 PEmicro GDB Launch Failure : Illegal Device Type (). See -devicelist commandline parameter. If run from Eclipse, check the device settings in the launch Debug Configuration. Halting. null' resulted in a cancel status: Status CANCEL: com.pemicro.debug.gdbjtag.pne code=1 PEmicro GDB Launch Failure : Illegal Device Type (). See -devicelist commandline parameter. If run from Eclipse, check the device settings in the launch Debug Configuration. Halting. null, even though the request is not set to cancel.
+
+!ENTRY com.pemicro.debug.gdbjtag.pne 4 5012 2019-11-28 02:54:04.984
+!MESSAGE Error in services launch sequence
+!STACK 1
+org.eclipse.core.runtime.CoreException: PEmicro GDB Launch Failure : Illegal Device Type (). See -devicelist commandline parameter. If run from Eclipse, check the device settings in the launch Debug Configuration. Halting.
+	at org.eclipse.cdt.dsf.concurrent.Sequence.abortExecution(Sequence.java:582)
+	at org.eclipse.cdt.dsf.concurrent.Sequence.access$4(Sequence.java:574)
+	at org.eclipse.cdt.dsf.concurrent.Sequence$2.handleErrorOrWarning(Sequence.java:431)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor.handleFailure(RequestMonitor.java:425)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor.handleCompleted(RequestMonitor.java:388)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor$2.run(RequestMonitor.java:313)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(Unknown Source)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+!SUBENTRY 1 com.pemicro.debug.gdbjtag.pne 8 1 2019-11-28 02:54:04.985
+!MESSAGE PEmicro GDB Launch Failure : Illegal Device Type (). See -devicelist commandline parameter. If run from Eclipse, check the device settings in the launch Debug Configuration. Halting.
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2019-11-28 03:04:33.699
+!MESSAGE Request monitor: 'Sequence "", result for executing step #0 = Status CANCEL: com.pemicro.debug.gdbjtag.pne code=1 PEmicro GDB Launch Failure : The GDB Server was not able to establish a connection to the target processor. Please check your connections and power. Verify that the launch settings in the Debug Configuration are accurate. null' resulted in a cancel status: Status CANCEL: com.pemicro.debug.gdbjtag.pne code=1 PEmicro GDB Launch Failure : The GDB Server was not able to establish a connection to the target processor. Please check your connections and power. Verify that the launch settings in the Debug Configuration are accurate. null, even though the request is not set to cancel.
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2019-11-28 03:04:33.700
+!MESSAGE Request monitor: 'Sequence "Initializing debugger services", result for executing step #0 = Status CANCEL: com.pemicro.debug.gdbjtag.pne code=1 PEmicro GDB Launch Failure : The GDB Server was not able to establish a connection to the target processor. Please check your connections and power. Verify that the launch settings in the Debug Configuration are accurate. null' resulted in a cancel status: Status CANCEL: com.pemicro.debug.gdbjtag.pne code=1 PEmicro GDB Launch Failure : The GDB Server was not able to establish a connection to the target processor. Please check your connections and power. Verify that the launch settings in the Debug Configuration are accurate. null, even though the request is not set to cancel.
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2019-11-28 03:04:33.700
+!MESSAGE Request monitor: 'RequestMonitor (org.eclipse.cdt.dsf.concurrent.RequestMonitorWithProgress@27336fcf): Status CANCEL: com.pemicro.debug.gdbjtag.pne code=1 PEmicro GDB Launch Failure : The GDB Server was not able to establish a connection to the target processor. Please check your connections and power. Verify that the launch settings in the Debug Configuration are accurate. null' resulted in a cancel status: Status CANCEL: com.pemicro.debug.gdbjtag.pne code=1 PEmicro GDB Launch Failure : The GDB Server was not able to establish a connection to the target processor. Please check your connections and power. Verify that the launch settings in the Debug Configuration are accurate. null, even though the request is not set to cancel.
+
+!ENTRY com.pemicro.debug.gdbjtag.pne 4 5012 2019-11-28 03:04:33.702
+!MESSAGE Error in services launch sequence
+!STACK 1
+org.eclipse.core.runtime.CoreException: PEmicro GDB Launch Failure : The GDB Server was not able to establish a connection to the target processor. Please check your connections and power. Verify that the launch settings in the Debug Configuration are accurate.
+	at org.eclipse.cdt.dsf.concurrent.Sequence.abortExecution(Sequence.java:582)
+	at org.eclipse.cdt.dsf.concurrent.Sequence.access$4(Sequence.java:574)
+	at org.eclipse.cdt.dsf.concurrent.Sequence$2.handleErrorOrWarning(Sequence.java:431)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor.handleFailure(RequestMonitor.java:425)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor.handleCompleted(RequestMonitor.java:388)
+	at org.eclipse.cdt.dsf.concurrent.RequestMonitor$2.run(RequestMonitor.java:313)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(Unknown Source)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+!SUBENTRY 1 com.pemicro.debug.gdbjtag.pne 8 1 2019-11-28 03:04:33.702
+!MESSAGE PEmicro GDB Launch Failure : The GDB Server was not able to establish a connection to the target processor. Please check your connections and power. Verify that the launch settings in the Debug Configuration are accurate.
