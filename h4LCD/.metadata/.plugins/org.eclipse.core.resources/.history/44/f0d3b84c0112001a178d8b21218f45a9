@@ -1,0 +1,383 @@
+/*!
+ *  @copyright   � 2017  Leticia Flores <leticia.flors@gmail.com>
+ * 					     Matheus de Sousa Castro <matheus.sousa110@gmail.com>
+ * 	   		             Stephanie Lopes <stephanielopees@gmail.com>
+ * 				         Victoria da Silva Leite <victoria_leite@hotmail.com>
+ *
+ *
+ *  @brief       Classe do uso do I2C com interrup��o.
+ *
+ *  @example     mkl_I2CInterrupt.cpp
+ *  @version     1.0
+ *  @date        07 Dezembro 2017
+ *
+ *  @section     HARDWARES & SOFTWARES
+ *               +board        FRDM-KL25Z da NXP.
+ *               +processor    MKL25Z128VLK4 - ARM Cortex-M0+
+ *               +compiler     Kinetis� Design Studio IDE
+ *               +manual       L25P80M48SF0RM, Rev.3, September 2012
+ *               +revisions    Vers�o (data): Descri��o breve.
+ *                             ++ 1.0 (07 Dezembro 2017): Vers�o inicial.
+ *
+ *  @section     AUTHORS & DEVELOPERS
+ *               +institution  Universidade Federal do Amazonas
+ *               +courses      Engenharia da Computa��o / Engenharia El�trica
+ *               +teacher      Miguel Grimm <miguelgrimm@gmail.com>
+ *               +student      Vers�o inicial:
+ *                             ++ Leticia Flores <leticia.flors@gmail.com>
+ * 							   ++ Matheus de Sousa Castro <matheus.sousa110@gmail.com>
+ * 							   ++ Stephanie Lopes <stephanielopees@gmail.com>
+ * 						       ++ Victoria da Silva Leite <victoria_leite@hotmail.com>
+ *
+ *  @section     LICENSE
+ *
+ *              GNU General Public License (GNU GPL)
+ *
+ *              Este programa � um software livre; Voc� pode redistribu�-lo
+ *              e/ou modific�-lo de acordo com os termos do "GNU General Public
+ *              License" como publicado pela Free Software Foundation; Seja a
+ *              vers�o 3 da licen�a, ou qualquer vers�o posterior.
+ *
+ *              Este programa � distribu�do na esperan�a de que seja �til,
+ *              mas SEM QUALQUER GARANTIA; Sem a garantia impl�cita de
+ *              COMERCIALIZA��O OU USO PARA UM DETERMINADO PROP�SITO.
+ *              Veja o site da "GNU General Public License" para mais detalhes.
+ *
+ *  @htmlonly   http://www.gnu.org/copyleft/gpl.html
+ */
+
+/*!
+ *  @brief    Construtor padr�o da classe.
+ *
+ *  O construtor padr�o da classe obt�m o n�mero do pino, do GPIO e do mux a partir
+ *  do pino desejado, associa fisicamento o objeto de software ao perif�rico
+ *  de hardware, habilita o clock do GPIO, habilita o clock do I2C e habilita o mesmo.
+ */
+
+#include "mkl_I2CInterrupt.h"
+
+mkl_I2CInterrupt::mkl_I2CInterrupt(i2c_Pin_t pinSCL, i2c_Pin_t pinSDA){
+	uint32_t muxAltMask;
+	uint32_t pinNumber;
+	uint32_t GPIONumber;
+
+	setI2CParameters(pinSCL, pinNumber, GPIONumber,I2CNumber, muxAltMask);
+	bindPeripheral(I2CNumber);
+	enablePeripheralClock(I2CNumber);
+	enableGPIOClock(GPIONumber);
+	bindPin(pinNumber, GPIONumber);
+	selectMuxAlternative(muxAltMask);
+	setI2CParameters(pinSDA, pinNumber, GPIONumber,I2CNumber, muxAltMask);
+	bindPin(pinNumber, GPIONumber);
+	selectMuxAlternative(muxAltMask);
+}
+
+/*!
+ *  @brief      Configura a prioridade da interrup��o do I2C.
+ *
+ *  Este m�todo configura a prioridade de interrup��o para o I2C0 e I2C1.
+ *
+ *  @param[in]  I2CNumber - o n�mero do I2C ultilizado.
+ *
+ */
+void mkl_I2CInterrupt::setPriority(i2c_Priority_t priority){
+	switch (I2CNumber) {
+		case 0: NVIC_SetPriority(I2C0_IRQn, priority);
+            break;
+		case 1: NVIC_SetPriority(I2C1_IRQn, priority);
+            break;
+	  }
+	i2cPririoty = priority;
+}
+
+/*!
+ *  @brief      Retorna a prioridade da interrup��o do I2C.
+ *
+ *  @return   i2cPririoty - N�mero da prioridade.
+ *
+ */
+i2c_Priority_t mkl_I2CInterrupt::getPriority(){
+	return i2cPririoty;
+}
+
+/*!
+ *  @brief      Habilita a interrup��o do I2C.
+ *
+ *  Este m�todo habilita a interrup��o para o I2C0 e I2C1.
+ *
+ *  @param[in]  I2CNumber - o n�mero do I2C ultilizado
+ *
+ *  @remarks    Sigla e pagina do Manual de Referencia KL25:
+ *              - I2CxC1(D6): Habilita/desabilita as solicita��es de interrup��o do i2c. P�g.692
+ *
+ */
+void mkl_I2CInterrupt::enableInterrupt(){
+	*addressI2CxC1 |= I2C_C1_IICIE_MASK;
+
+	switch (I2CNumber) {
+			case 0: NVIC_EnableIRQ(I2C0_IRQn);
+	            break;
+			case 1: NVIC_EnableIRQ(I2C1_IRQn);
+	            break;
+	}
+}
+
+/*!
+ *  @brief      Desabilita a interrup��o do I2C.
+ *
+ *  Este m�todo desabilita a interrup��o para o I2C0 e I2C1.
+ *
+ *  @param[in]  I2CNumber - o n�mero do I2C ultilizado
+ *
+ *  @remarks    Sigla e pagina do Manual de Referencia KL25:
+ *              - I2CxC1(D6): Habilita/desabilita as solicita��es de interrup��o do i2c. P�g.692
+ *
+ */
+void mkl_I2CInterrupt::disableInterrupt(){
+	*addressI2CxC1 &= ~I2C_C1_IICIE_MASK;
+
+	switch (I2CNumber) {
+			case 0: NVIC_EnableIRQ(I2C0_IRQn);
+	            break;
+			case 1: NVIC_EnableIRQ(I2C1_IRQn);
+	            break;
+	}
+}
+
+/*!
+ *  @brief      Verifica se a flag de interrup��o est� limpa
+ *
+ *  @return     Retorna "1" se o valor encontrado no registrador de status S
+ *  e o valor mascarado deste forem "1"
+ *
+ * 	@remarks	Sigla e pagina do Manual de Referencia KL25:
+ * 				- I2CxS(D1): Limpa o flag de interrup��o. P�g. 695
+ *
+ */
+bool mkl_I2CInterrupt::isSettedInterruptFlag(){
+	return ((*addressI2CxS & I2C_S_IICIF_MASK) >> 1);
+}
+
+/*!
+ *  @brief      Limpa a flag de interrup��o encontrada no registrador de status S
+ *
+ * 	@remarks	Sigla e pagina do Manual de Referencia KL25:
+ * 				- I2CxS(D1): Limpa o flag de interrup��o. P�g. 695
+ *
+ */
+void mkl_I2CInterrupt::clearInterruptFlag(){
+	*addressI2CxS |= I2C_S_IICIF_MASK;
+}
+
+/*!
+ *   @brief      Configura a velocidade de transmiss�o do I2C.
+ *
+ *   Este m�todo configura a velocidade de transmiss�o do I2C no Frequency Divider register.
+ *
+ *   @param[in]  speed - O valor da velocidade de transmiss�o.
+ *
+ *   @remarks    Sigla e pagina do Manual de Referencia KL25:
+ *               - I2CxF: Frequency Divider register. P�g. 691.
+ */
+void mkl_I2CInterrupt::baudRate(i2c_baudRate_t speed){
+	disableI2C();
+	clearInterruptFlag();
+	*addressI2CxF = speed;
+	enableI2C();
+}
+
+/*!
+ *   @brief      Seta o endere�o do escravo.
+ *
+ *   Este m�todo seta o endere�o do escravo.
+ */
+void mkl_I2CInterrupt::setSlave(uint8_t address){
+	slaveAddress = address;
+}
+
+/*!
+ *   @brief      Retorna o endereco do escravo.
+ *
+ *   Este m�todo retorna do endere�o do escravo.
+ *
+ *   @return     Endere�o do escravo.
+ *
+ */
+uint8_t mkl_I2CInterrupt::getSlave(){
+	return slaveAddress;
+}
+
+/*!
+ *   @brief      Habilita o I2C a trabalhar com o Ack.
+ *
+ *   Este m�todo habilita o I2C a trabalhar com o Ack, atrav�s
+ *   o registrador I2CxC1.
+ *
+ *   @remarks    Sigla e p�gina do Manual de Referencia KL25:
+ *               - I2CxC1: I2C Control Register 1. P�g. 692.
+ */
+void mkl_I2CInterrupt::enableAck(){
+	*addressI2CxC1 |= I2C_C1_TXAK_MASK;
+}
+
+/*!
+ *   @brief      Desabilita o Ack.
+ *
+ *   Este m�todo desabilita o Ack atrav�s do registrador I2Cxc1.
+ *
+ *   @remarks    Sigla e p�gina do Manual de Referencia KL25:
+ *               - I2CxC1: I2C Control Register 1. P�g. 692.
+ *
+ */
+void mkl_I2CInterrupt::disableAck(){
+	*addressI2CxC1 &= ~I2C_C1_TXAK_MASK;
+}
+
+/*!
+ *   @brief      Inicia a transmiss�o com o escravo.
+ *
+ *   Este m�todo inicia da comunica��o do I2C com o escravo.
+ *
+ *   @return     A exce��o.
+ *
+ *   @remarks    Sigla e p�gina do Manual de Referencia KL25:
+ *               - I2CxS: I2C Status register. P�g. 694.
+ *               - I2CxC1: I2C Control Register 1. P�g. 692.
+ *               - I2CxD: I2C Data I/O register. P�g 695.
+ */
+i2c_Exception_t mkl_I2CInterrupt::startTransmission(){
+
+	while(*addressI2CxS & I2C_S_BUSY_MASK){
+		exception = i2c_erroBusBusy;
+		return exception;
+	}
+	*addressI2CxC1 |= I2C_C1_TX_MASK;
+	*addressI2CxC1 |= I2C_C1_MST_MASK;
+
+	*addressI2CxD = (slaveAddress << 1);
+}
+
+/*!
+ *  @brief     Faz a verifica��o das exce��es que ocorreram ou n�o na transmiss�o
+ *
+ *  @return    Retorna exce��o que ocorreram durante a transmiss�o
+ *
+ *  @remarks    Sigla e pagina do Manual de Referencia KL25:
+ *              - I2CxS:Status Register. P�g.694.
+ *
+ */
+i2c_Exception_t mkl_I2CInterrupt::checkTransmission(){
+	if(*addressI2CxS & I2C_S_ARBL_MASK){
+		*addressI2CxS |= I2C_S_ARBL_MASK;
+		exception = i2c_erroArbitrationLost;
+		return exception;
+	}
+
+	if(*addressI2CxS & I2C_S_RXAK_MASK){
+		exception = i2c_erroNoAck;
+		return exception;
+	}
+}
+
+/*!
+ *  @brief      Envia os dados para o I2C.
+ *
+ *  Este m�todo escreve no registador de dados D do periferico I2C.
+ *
+ *  @remarks    Sigla e pagina do Manual de Referencia KL25:
+ *              - I2CxD(D0-D7): Envia dados recebidos para o I2C. P�g.696
+ *
+ */
+void mkl_I2CInterrupt::send8Bits(uint8_t data){
+	*addressI2CxD = data;
+}
+
+/*!
+ *   @brief      Termina o processo de escrita.
+ *
+ *   Este m�todo termina a transmi��o de escrita usando o registrador
+ *   de controle I2CxC1.
+ *
+ *   @remarks    Sigla e p�gina do Manual de Referencia KL25:
+ *               - I2CxC1: I2C Control Register 1. P�g. 692.
+ */
+void mkl_I2CInterrupt::stopTransmission(){
+	if(*addressI2CxS & I2C_S_RXAK_MASK){
+			exception = i2c_erroNoAck;
+	}
+
+	*addressI2CxC1 &= ~0x30;
+}
+
+/*!
+ *   @brief      Seleciona o modo de leitra do I2C.
+ *
+ *   Este m�todo seleciona o modo de leitura do I2C e manda o endere�o do slave,
+ *   conforme o protocolo de I2C, podendo escolher o endere�o.
+ *
+ *   @return     A exce��o.
+ *
+ *   @remarks    Sigla e p�gina do Manual de Referencia KL25:
+ *               - I2CxC1: I2C Control Register 1. P�g. 692.
+ *               - I2CxD: I2C Data I/O register. P�g 695.
+ */
+i2c_Exception_t mkl_I2CInterrupt::selectReceptionMode(){
+	*addressI2CxC1 |= I2C_C1_RSTA_MASK;
+
+	*addressI2CxD = (slaveAddress << 1) | 1;
+}
+
+/*!
+ *  @brief     Verifica o modo de leitura do i2c
+ *
+ *  @return    Retorna exce��o que interrompe a recep��o (se houver)
+ *
+ *  @remarks   Sigla e pagina do Manual de Referencia KL25:
+ *             - I2CxC1: Control Register 1. P�g.692.
+ *             - I2CxSMB: SMBus Control and Status register. P�g. 699.
+ *
+ */
+i2c_Exception_t mkl_I2CInterrupt::checkReceptionMode(){
+	volatile unsigned char dummy;
+
+	if(*addressI2CxS & I2C_S_RXAK_MASK) {
+		exception = i2c_erroNoAck;
+		return exception;
+	}
+	*addressI2CxC1 &= ~0x18;
+
+	*addressI2CxC1 |= I2C_C1_TXAK_MASK;
+	dummy = *addressI2CxD;
+
+	*addressI2CxC1 |= I2C_C1_TXAK_MASK;
+
+	*addressI2Cx_SMB |= I2C_SMB_FACK_MASK;
+}
+
+/*!
+ *   @brief      L� o dado do escravo.
+ *
+ *   Este m�todo configura a leitura do dado do escravo atrav�s do registrador
+ *   I2CxC1 e retornando o dado no registrador I2CxD.
+ *
+ *   @return     O dado no registrador I2CxD.
+ *
+ *   @remarks    Sigla e p�gina do Manual de Referencia KL25:
+ *               - I2CxC1: I2C Control Register 1. P�g. 692.
+ *               - I2CxD: I2C Data I/O register. P�g 695.
+ *
+ */
+uint8_t mkl_I2CInterrupt::receive8Bits(){
+	*addressI2CxC1 &= ~I2C_C1_MST_MASK;
+	return *addressI2CxD;
+}
+
+
+/*!
+ *  @brief     retorna a exce��o que ocorreu.
+ *
+ *  @return    Retorna a exce��o ocorida.
+ */
+i2c_Exception_t mkl_I2CInterrupt::ExceptionOcurred(){
+	return exception;
+}
