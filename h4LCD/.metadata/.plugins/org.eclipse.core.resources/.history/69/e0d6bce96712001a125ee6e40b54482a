@@ -39,14 +39,13 @@ public:
 class Visor
 {
 private:
-    /*uint8_t adress;
+    uint8_t adress;
     functionSetOption linhas, colunas, pixels;
     i2c_Pin_t SCL_pin, SDA_pin;
-    mkl_LCD lcd(linhas, colunas, pixels, SCL_pin, SDA_pin, adress);*/
-    mkl_LCD lcd;
+    mkl_LCD lcd(linhas, colunas, pixels, SCL_pin, SDA_pin, adress);
 
 public:
-    /*Visor(functionSetOption numLines, functionSetOption numCols,
+    Visor(functionSetOption numLines, functionSetOption numCols,
           functionSetOption numPixels, i2c_Pin_t SCLPin, i2c_Pin_t SDAPin,
           uint8_t I2CAddress)
     {
@@ -56,19 +55,7 @@ public:
         SCL_pin = SCLPin;
         SDA_pin = SDAPin;
         adress = I2CAddress;
-    }*/
-    Visor(functionSetOption numLines, functionSetOption numCols,
-          functionSetOption numPixels, i2c_Pin_t SCLPin, i2c_Pin_t SDAPin,
-          uint8_t I2CAddress) : lcd(numLines, numCols, numPixels, SCLPin, SDAPin, I2CAddress)
-    {
-        lcd.setCursor(1, 7);
-        lcd.putString("LCD");
-        lcd.setCursor(2, 3);
-        lcd.putString("INICIALIZADO");
-        lcd.delay(5000);
-        lcd.clear();
-        lcd.home();
     }
-};
+}
 
 #endif /* SOURCES_DEVICES_DEVICES_H_ */

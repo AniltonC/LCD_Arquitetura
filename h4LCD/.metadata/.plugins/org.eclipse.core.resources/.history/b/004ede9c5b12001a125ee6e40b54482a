@@ -34,7 +34,8 @@ uint8_t deviceAddress = 0x27;
 /*!
  *   Configura o formato do display e os parametros do modulo I2C
  */
-//mkl_LCD lcd(mode2Lines, mode16Cols, mode5x10Dots, i2c_PTE1, i2c_PTE0, deviceAddress);
+mkl_LCD lcd(mode2Lines, mode16Cols, mode5x10Dots, i2c_PTE1, i2c_PTE0,
+			deviceAddress);
 
 /*!
  *   @brief      Pausa o programa
@@ -66,10 +67,10 @@ void delay(uint32_t milliSeconds)
  *   "Arquitetura" Ã© impressa em uma linha.
  */
 
-int main(void) /*
+int main(void)
 {
 
-
+	/*
 	int valor;
 	Led led1(gpio_PTB18);
 	while(1){
@@ -80,58 +81,31 @@ int main(void) /*
 		valor = led1.getLed();
 		delay(200);
 	}
-
-	string name = "Anilton";
-	lcd.home();
-	//lcd.setCursorOff();
-	//lcd.setBlinkOff();
-	uint8_t num = 0;
+*/
 	while (1)
 	{
-		lcd.home();
 		lcd.setCursorOff();
-		lcd.putString("Cursor OFF!");
 		delay(2000);
 
-		lcd.clear();
-		lcd.home();
+		lcd.setCursor(1, 1);
+		lcd.putString("Teste 1 2 3 4 5 6 7 8 9");
+		delay(5000);
+
+		lcd.setBacklightOff();
+		lcd.putString("Backlight OFF!");
+		delay(2000);
+
+		lcd.setBacklightOn();
+		lcd.putString("Backlight ON!");
+		delay(2000);
 
 		lcd.setBlinkOff();
 		lcd.putString("Blink OFF!");
 		delay(5000);
-		//lcd.home();
-		for (int i = 0; i < name.length(); i++)
-		{
-			lcd.putChar(name[i]);
-			if (num == 15)
-			{
-				lcd.setCursor(2, 1);
-				num++;
-			}
-			else if (num == 31)
-			{
-				num = 0;
-				lcd.home();
-			}
-			else
-				num++;
-
-			delay(300);
-		}
-
-		lcd.clear();
-		lcd.home();
-
-		lcd.setCursorOn();
-		lcd.putString("Cursor ON!");
-		delay(2000);
-
-		lcd.clear();
-		lcd.home();
 
 		lcd.setBlinkOn();
 		lcd.putString("Blink ON!");
-		delay(2000);
+		delay(4500);
 	}
 
 	while (true)
@@ -140,8 +114,4 @@ int main(void) /*
 		lcd.setCursor(1, 1);
 		lcd.putString("Teste 1 2 3");
 	}
-}
-*/
-{
-	Visor LCD(mode2Lines, mode16Cols, mode5x10Dots, i2c_PTE1, i2c_PTE0, deviceAddress);
 }

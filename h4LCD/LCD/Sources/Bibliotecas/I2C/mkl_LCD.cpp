@@ -231,7 +231,7 @@ delayMicroSeconds(150);
 sendCommand(functionSet | mode4Bits | _numLines | _numPixels);
 
 //----------------------------------
-_displayControl = displayOn | cursorOn | blinkOn;
+_displayControl = displayOn | cursorOff | blinkOff;
 sendCommand(displayControl | _displayControl);
 //----------------------------------
 

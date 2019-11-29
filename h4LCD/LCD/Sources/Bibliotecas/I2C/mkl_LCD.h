@@ -193,7 +193,11 @@ class mkl_LCD {
   void sendCommand(uint8_t command);
   void pulseEnable(uint8_t data);
   void delayMicroSeconds(uint32_t microSeconds);
+
+  public:
   void delay(uint32_t milliSeconds);
+
+  private:
   void sendI2C(uint8_t data);
   void writeNibble(uint8_t data, uint8_t control);
 
