@@ -168,3 +168,18 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.somniumtech
 
 !ENTRY com.processorexpert.core.ide.wizard.ui 2 0 2019-11-28 23:18:00.994
 !MESSAGE External elements location /opt/Freescale/KDS_v3/eclipse/ProcessorExpert/BoardConfigurations/wizard_data does not exist
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2019-11-30 15:36:19.336
+!MESSAGE Breakpoint already removed
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10005 2019-11-30 15:36:19.336
+!MESSAGE Breakpoint already removed
+
+!ENTRY org.eclipse.core.jobs 4 2 2019-11-30 15:36:19.399
+!MESSAGE An internal error occurred during: "Lookup Debugger Path".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.debug.core.sourcelookup.containers.CompositeSourceContainer.getSourceContainers(CompositeSourceContainer.java:134)
+	at org.eclipse.cdt.debug.internal.core.sourcelookup.SourceUtils.getCompilationPath(SourceUtils.java:205)
+	at org.eclipse.cdt.debug.internal.core.sourcelookup.CSourceLookupDirector.getCompilationPath(CSourceLookupDirector.java:179)
+	at org.eclipse.cdt.dsf.mi.service.CSourceLookup$2.run(CSourceLookup.java:171)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
