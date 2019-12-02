@@ -21,9 +21,9 @@ int main(void)
 */
 
 #include "stdint.h"
-#include "./Bibliotecas/GPIO/mkl_GPIOPort.h"
+#include "../Bibliotecas/GPIO/mkl_GPIOPort.h"
 #include "MKL25Z4.h"
-#include "./Bibliotecas/Systick/mkl_SystickPeriodicInterrupt.h"
+#include <mkl_SystickPeriodicInterrupt.h>
 
 /*!
  * 	Declara��o do led RGB interno da placa
@@ -39,7 +39,7 @@ mkl_GPIOPort redLed(gpio_PTB18);
  * 	Declara��o do objeto systick e configura��o para acontecer uma interrup��o a cada 100ms
  * 	e usar o clock da placa de 42MHz
  */
-mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(1, clock42Mhz);
+mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(10, clock42Mhz);
 
 /*!
  * Declara��o da vari�vel a ser usada como flag para guardar o estado anterior dos led�s.

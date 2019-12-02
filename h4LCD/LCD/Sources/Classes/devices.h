@@ -131,4 +131,7 @@ public:
     }
 };
 
+class Timer
+{
+};
 #endif /* SOURCES_DEVICES_DEVICES_H_ */
