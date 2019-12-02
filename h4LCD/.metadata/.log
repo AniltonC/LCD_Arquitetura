@@ -249,3 +249,42 @@ org.eclipse.core.internal.resources.ResourceException: Resource '/LCD/Debug/Sour
 !MESSAGE Resource '/LCD/Debug/Sources/Bibliotecas/TPM' does not exist.
 !SUBENTRY 1 org.eclipse.core.resources 4 368 2019-12-02 00:20:31.928
 !MESSAGE Resource '/LCD/Debug/Sources/Bibliotecas/TPM' does not exist.
+!SESSION 2019-12-02 07:35:10.281 -----------------------------------------------
+eclipse.buildId=3.2.0.201603041649
+java.version=1.7.0_76
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product com.somniumtech.branding.kds.ide
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.somniumtech.branding.kds.ide
+
+!ENTRY org.eclipse.core.resources 2 10035 2019-12-02 07:35:20.583
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.processorexpert.core.ide.wizard.ui 2 0 2019-12-02 07:35:49.122
+!MESSAGE External elements location /opt/Freescale/KDS_v3/eclipse/ProcessorExpert/BoardConfigurations/wizard_data does not exist
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2019-12-02 07:39:57.797
+!MESSAGE Request for monitor: 'RequestMonitor (org.eclipse.cdt.dsf.concurrent.RequestMonitor@7eb2734e): Status ERROR: org.eclipse.cdt.dsf.gdb code=10001 Context cannot be suspended. null' resulted in an error.
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10001 2019-12-02 07:39:57.797
+!MESSAGE Context cannot be suspended.
+
+!ENTRY org.eclipse.jface 2 0 2019-12-02 08:26:45.805
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2019-12-02 08:26:45.805
+!MESSAGE A conflict occurred for CTRL+D:
+Binding(CTRL+D,
+	ParameterizedCommand(Command(org.eclipse.debug.ui.commands.eof,EOF,
+		Send end of file,
+		Category(org.eclipse.debug.ui.category.run,Run/Debug,Run/Debug command category,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1b730fff,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.debug.ui.console,,,system)
+Binding(CTRL+D,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.text.delete.line,Delete Line,
+		Delete a line of text,
+		Category(org.eclipse.ui.category.textEditor,Text Editing,Text Editing Commands,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1f1f3c6d,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.textEditorScope,,,system)

@@ -45,9 +45,8 @@ mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(10, clock42M
 /*!
  * Declara��o da vari�vel a ser usada como flag para guardar o estado anterior dos led�s.
  */
-bool bit = 1;
-bool count = false;
-uint16_t divisor = 0;
+bool bit = 0;
+
 uint8_t t[4] = {48, 48, 48, 48};
 /*
 
@@ -85,37 +84,30 @@ extern "C"
     void SysTick_Handler(void)
     {
         // LED TOGGLE
-        //bit = !bit;
+    	/*
+        bit = !bit;
         blueLed.writeBit(bit);
-        redLed.writeBit(bit);
-        if (count)
+        redLed.writeBit(!bit);
+        */
+        t[3] += 1;
+        if (t[3] > 57)
         {
-            if (divisor == 1)
+            t[2] += 1;
+            t[3] = 48;
+            if (t[2] > 53)
             {
-                t[3] += 1;
-                if (t[3] > 57)
+                t[1] += 1;
+                t[2] = 48;
+                if (t[1] > 57)
                 {
-                    t[2] += 1;
-                    t[3] = 48;
-                    if (t[2] > 53)
+                    t[0] += 1;
+                    t[1] = 48;
+                    if (t[0] > 53)
                     {
-                        t[1] += 1;
-                        t[2] = 48;
-                        if (t[1] > 57)
-                        {
-                            t[0] += 1;
-                            t[1] = 48;
-                            if (t[0] > 53)
-                            {
-                                t[0] = 48;
-                            }
-                        }
+                        t[0] = 48;
                     }
                 }
             }
-            else if (divisor == 100)
-                divisor = 0;
-            divisor++;
         }
     }
 }
@@ -134,7 +126,6 @@ int main(void)
     Visor LCD(mode2Lines, mode16Cols, mode5x10Dots, i2c_PTE1, i2c_PTE0, 0x27);
     while (1)
     {
-        count = true;
         LCD.printTime(t);
         /* Espera aqui por uma interrupcao */
     }

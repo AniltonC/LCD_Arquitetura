@@ -1,6 +1,6 @@
-00:33:12 **** Incremental Build of configuration Debug for project LCD ****
+10:16:01 **** Incremental Build of configuration Debug for project LCD ****
 make all 
 make: Nothing to be done for `all'.
 
-00:33:13 Build Finished (took 331ms)
+10:16:01 Build Finished (took 453ms)
 
