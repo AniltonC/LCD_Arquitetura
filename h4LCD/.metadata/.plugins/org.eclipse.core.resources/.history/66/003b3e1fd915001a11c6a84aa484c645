@@ -21,7 +21,6 @@ public:
     Led(gpio_Pin pin) : port(pin)
     {
         port.setPortMode(gpio_output);
-        turnOff();
     };
     void turnOn()
     {
@@ -81,34 +80,20 @@ public:
     }
 };
 
+class Timer
+{
+private:
+    mkl_SystickPeriodicInterrupt systick;
+
+public:
+    Timer(uint8_t time_ms, systick_clockSource clock) : systick(time_ms, clock)
+    {
+    }
+};
+
 class FreqDivisor
 {
 private:
-    mkl_SystickPeriodicInterrupt clockMaq;
-    uint16_t freqCounter, counterLim;
-    bool newClock;
-
-public:
-    FreqDivisor(uint16_t newFreq) : clockMaq(10, clock42Mhz)
-    {
-        freqCounter = 0;
-        newClock = 0;
-        counterLim = 50.0/newFreq;
-    }
-    void increment()
-    {
-        freqCounter++;
-        if (freqCounter == (counterLim))
-        {
-            newClock = 1;
-            freqCounter = 0;
-        }
-        else
-            newClock = 0;
-    }
-    bool getClock()
-    {
-        return newClock;
-    }
-};
+    Timer clockMaq(10, clock42Mhz);
+}
 #endif /* SOURCES_DEVICES_DEVICES_H_ */

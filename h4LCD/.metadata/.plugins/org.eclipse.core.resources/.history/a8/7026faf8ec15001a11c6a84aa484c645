@@ -26,12 +26,12 @@
  * 	e usar o clock da placa de 42MHz
  */
 mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(10, clock42Mhz);
-FreqDivisor divisorFreq = FreqDivisor(1);
-FreqDivisor diviFreq2hz = FreqDivisor(50);
+FreqDivisor divisorFreq = FreqDivisor(50);
 /*!
  * Declara��o da vari�vel a ser usada como flag para guardar o estado anterior dos led�s.
  */
-
+bool bit = 1;
+bool count = false;
 uint8_t divisor = 0;
 uint16_t cont = 0;
 uint8_t t[4] = {48, 48, 54, 48};
@@ -40,13 +40,27 @@ uint8_t t[4] = {48, 48, 54, 48};
  *   @brief    Realiza o blink dos leds vermelhor e azul.
  */
 
+Led RED_led = Led(gpio_PTB18);
+
 extern "C"
 {
 	void SysTick_Handler(void)
 	{
+		// LED TOGGLE
+
+		//blueLed.writeBit(bit);
+		//redLed.writeBit(bit);
 		divisorFreq.increment();
 		if (divisorFreq.getClock())
 		{
+			bit = !bit;
+			if (bit)
+			{
+				RED_led.turnOn();
+			}
+			else
+				RED_led.turnOff;
+
 			t[3] -= 1;
 			if (t[3] < 48)
 			{
@@ -58,26 +72,16 @@ extern "C"
 					t[2] = 53;
 					if (t[1] < 48)
 					{
-						//t[0] -= 1;
+						t[0] -= 1;
 						t[1] = 57;
-						/*
 						if (t[0] < 48)
 						{
 							t[0] = 53;
 						}
-						*/
 					}
 				}
 			}
 			divisor = 0;
-		}
-
-		diviFreq2hz.increment();
-		if (diviFreq2hz.getClock())
-		{
-			t[0]++;
-			if (t[0] == 57)
-				t[0] = 48;
 		}
 	}
 }
@@ -91,6 +95,8 @@ extern "C"
  */
 int main(void)
 {
+	blueLed.setPortMode(gpio_output);
+	redLed.setPortMode(gpio_output);
 	Visor LCD(mode2Lines, mode16Cols, mode5x10Dots, i2c_PTE1, i2c_PTE0, 0x27);
 	while (1)
 	{

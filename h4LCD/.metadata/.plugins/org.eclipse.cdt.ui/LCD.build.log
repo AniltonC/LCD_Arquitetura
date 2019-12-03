@@ -1,6 +1,15 @@
-21:29:18 **** Incremental Build of configuration Debug for project LCD ****
+15:03:00 **** Incremental Build of configuration Debug for project LCD ****
 make all 
-make: Nothing to be done for `all'.
+Building file: ../Sources/main.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/main.d" -MT"Sources/main.o" -c -o "Sources/main.o" "../Sources/main.cpp"
+Finished building: ../Sources/main.cpp
+ 
+Building target: LCD.elf
+Invoking: Cross ARM C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"/home/anilton/Desktop/GitHub_Repo/LCD_Arquitetura/h4LCD/LCD/Project_Settings/Linker_Files" -Wl,-Map,"LCD.map" -specs=nano.specs -specs=nosys.specs -o "LCD.elf"  ./Sources/Bibliotecas/Systick/mkl_Systick.o ./Sources/Bibliotecas/Systick/mkl_SystickPeriodicInterrupt.o  ./Sources/Bibliotecas/I2C/mkl_I2C.o ./Sources/Bibliotecas/I2C/mkl_I2CPort.o ./Sources/Bibliotecas/I2C/mkl_LCD.o  ./Sources/Bibliotecas/GPIO/mkl_GPIO.o ./Sources/Bibliotecas/GPIO/mkl_GPIOPort.o  ./Sources/main.o  ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o   
+Finished building target: LCD.elf
+ 
 
-21:29:19 Build Finished (took 314ms)
+15:03:02 Build Finished (took 1s.346ms)
 
