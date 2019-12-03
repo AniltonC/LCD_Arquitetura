@@ -1,7 +1,7 @@
 /*!
- * @copyright   © 2019 UFAM - Universidade Federal do Amazonas.
+ * @copyright   ï¿½ 2019 UFAM - Universidade Federal do Amazonas.
  *
- * @brief       Interface de programação de aplicações em C++ para  o System Tick Timer (MKL25Z).
+ * @brief       Interface de programaï¿½ï¿½o de aplicaï¿½ï¿½es em C++ para  o System Tick Timer (MKL25Z).
  *
  * @file        mkl_SystickPeriodicInterrupt.cpp
  * @version     1.0
@@ -11,30 +11,30 @@
  *              +board        FRDM-KL25Z da NXP.
  *              +processor    MKL25Z128VLK4 - ARM Cortex-M0+.
  *              +peripheral   Systick - System Tick Timer.
- *              +compiler     Kinetis® Design Studio IDE
+ *              +compiler     Kinetisï¿½ Design Studio IDE
  *              +manual       L25P80M48SF0RM, Rev.3, September 2012
- *              +revisions    Versão (data): Descrição breve.
- *                             ++ 1.0 (31 Janeiro 2019): Versão inicial.
+ *              +revisions    Versï¿½o (data): Descriï¿½ï¿½o breve.
+ *                             ++ 1.0 (31 Janeiro 2019): Versï¿½o inicial.
  *
  * @section     AUTHORS & DEVELOPERS
  *              +institution  Universidade Federal do Amazonas
- *              +courses      Engenharia da Computação / Engenharia Elétrica
+ *              +courses      Engenharia da Computaï¿½ï¿½o / Engenharia Elï¿½trica
  *              +teacher      Miguel Grimm <miguelgrimm@gmail.com>
- *              +student      Versão inicial:
+ *              +student      Versï¿½o inicial:
  *                             ++ Victoria da Silva Leite <victoria.vl73@gmail.com>
  *
  * @section     LICENSE
  *
  *              GNU General Public License (GNU GPL).
  *
- *              Este programa é um software livre; Você pode redistribuí-lo
- *              e/ou modificá-lo de acordo com os termos do "GNU General Public
+ *              Este programa ï¿½ um software livre; Vocï¿½ pode redistribuï¿½-lo
+ *              e/ou modificï¿½-lo de acordo com os termos do "GNU General Public
  *              License" como publicado pela Free Software Foundation; Seja a
- *              versão 3 da licença, ou qualquer versão posterior.
+ *              versï¿½o 3 da licenï¿½a, ou qualquer versï¿½o posterior.
  *
- *              Este programa é distribuído na esperança de que seja útil,
- *              mas SEM QUALQUER GARANTIA; Sem a garantia implícita de
- *              COMERCIALIZAÇÃO OU USO PARA UM DETERMINADO PROPÓSITO.
+ *              Este programa ï¿½ distribuï¿½do na esperanï¿½a de que seja ï¿½til,
+ *              mas SEM QUALQUER GARANTIA; Sem a garantia implï¿½cita de
+ *              COMERCIALIZAï¿½ï¿½O OU USO PARA UM DETERMINADO PROPï¿½SITO.
  *              Veja o site da "GNU General Public License" para mais detalhes.
  *
  * @htmlonly    http://www.gnu.org/copyleft/gpl.html
@@ -44,13 +44,13 @@
 /*!
  *   @fn		mkl_SystickPeriodicInterrupt
  *
- * 	 @brief		Construtor padrão da classe.
- *   O construtor padrão da classe obtém o tempo de interrupção periodica e
- *   o clock desejado, e configura o clock e tempo de interrupção, habilita
- *   a interrupção e limpa a contagem do systick.
+ * 	 @brief		Construtor padrï¿½o da classe.
+ *   O construtor padrï¿½o da classe obtï¿½m o tempo de interrupï¿½ï¿½o periodica e
+ *   o clock desejado, e configura o clock e tempo de interrupï¿½ï¿½o, habilita
+ *   a interrupï¿½ï¿½o e limpa a contagem do systick.
  *
  *
- *	 @param[in] time_ms - Tempo em milisegundos para a interrupção.
+ *	 @param[in] time_ms - Tempo em milisegundos para a interrupï¿½ï¿½o.
  *	 			clock - clock do sistema ou clock do sistema dividido por 16.
  */
 mkl_SystickPeriodicInterrupt::mkl_SystickPeriodicInterrupt(uint32_t time_ms, systick_clockSource clock) {
@@ -65,7 +65,7 @@ mkl_SystickPeriodicInterrupt::mkl_SystickPeriodicInterrupt(uint32_t time_ms, sys
     enableCounter();
 
 	/*!
-	 *  Seta o valor de recarga que será usado na contagem.
+	 *  Seta o valor de recarga que serï¿½ usado na contagem.
 	 */
     setReload(reloadValue(time_ms, clock));
 
@@ -75,7 +75,7 @@ mkl_SystickPeriodicInterrupt::mkl_SystickPeriodicInterrupt(uint32_t time_ms, sys
     clearCounter();
 
 	/*!
-	 *  Habilita as requisições de interrupção.
+	 *  Habilita as requisiï¿½ï¿½es de interrupï¿½ï¿½o.
 	 */
     enableInterruptRequest();
 }
@@ -83,7 +83,7 @@ mkl_SystickPeriodicInterrupt::mkl_SystickPeriodicInterrupt(uint32_t time_ms, sys
 /*!
  *   @fn		enableInterruptRequest
  *
- * 	 @brief		Habilita a interrupção do systick.
+ * 	 @brief		Habilita a interrupï¿½ï¿½o do systick.
  */
 void mkl_SystickPeriodicInterrupt::enableInterruptRequest() {
     __enable_irq();
@@ -93,7 +93,7 @@ void mkl_SystickPeriodicInterrupt::enableInterruptRequest() {
 /*!
  *   @fn		disableInterruptRequest
  *
- * 	 @brief		Desabilita a interrupção do systick.
+ * 	 @brief		Desabilita a interrupï¿½ï¿½o do systick.
  */
 void mkl_SystickPeriodicInterrupt::disableInterruptRequest() {
     __disable_irq();
@@ -104,7 +104,7 @@ void mkl_SystickPeriodicInterrupt::disableInterruptRequest() {
 /*!
  *   @fn		setPriority
  *
- * 	 @brief		Seta prioridade da interrupção do systick
+ * 	 @brief		Seta prioridade da interrupï¿½ï¿½o do systick
  *
  */
 void mkl_SystickPeriodicInterrupt::setPriority(st_Priority_t priority) {
@@ -114,9 +114,9 @@ void mkl_SystickPeriodicInterrupt::setPriority(st_Priority_t priority) {
 /*!
  *   @fn		getPriority
  *
- * 	 @brief		Retorna a prioridade de interrupção no vetor de interrupções NVIC.
+ * 	 @brief		Retorna a prioridade de interrupï¿½ï¿½o no vetor de interrupï¿½ï¿½es NVIC.
  *
- *	 @param[out] Prioridade da interrupção do systick.
+ *	 @param[out] Prioridade da interrupï¿½ï¿½o do systick.
  */
 st_Priority_t mkl_SystickPeriodicInterrupt::getPriority() {
     return (st_Priority_t) NVIC_GetPriority(SysTick_IRQn);
@@ -125,9 +125,9 @@ st_Priority_t mkl_SystickPeriodicInterrupt::getPriority() {
 /*!
  *   @fn		reloadValue
  *
- * 	 @brief		Método interno para calcular o valor de reload relativo ao tempo em milisegundos.
+ * 	 @brief		Mï¿½todo interno para calcular o valor de reload relativo ao tempo em milisegundos.
  *
- *	 @param[in]	time_ms - Tempo em milisegundos para a interrupção.
+ *	 @param[in]	time_ms - Tempo em milisegundos para a interrupï¿½ï¿½o.
  *	 			clock - clock do sistema ou clock do sistema dividido por 16.
  *
  *	 @param[out] reloadValue - Valor da quantidade de ciclos no registrador.

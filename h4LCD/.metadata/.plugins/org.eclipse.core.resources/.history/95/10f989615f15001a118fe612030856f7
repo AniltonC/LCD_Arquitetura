@@ -40,6 +40,51 @@ class Visor
 {
 private:
     mkl_LCD lcd;
+    void init_printTime()
+    {
+        uint8_t minuto[4] = {32, 32, 32, 32};
+        lcd.home();
+        for (uint8_t i = 0; i < 4; i++)
+        {
+            lcd.putChar(minuto[i]);
+            if (i == 1)
+                lcd.putChar(':');
+            lcd.delay(50);
+        }
+    }
+
+    void init_printCook()
+    {
+        string cook = "          ";
+        lcd.setCursor(1, 6);
+        lcd.putChar(32);
+        lcd.delay(50);
+        for (uint8_t i = 0; i < cook.length(); i++)
+        {
+            lcd.putChar(cook[i]);
+            lcd.delay(50);
+        }
+    }
+
+    void init_printOper()
+    {
+        string porta = "P-    ";
+        string valv = "V-    ";
+        string giro = "G-   ";
+        for (uint8_t i = 0; i < porta.length(); i++)
+        {
+            lcd.setCursor(2, 1 + i);
+            lcd.putChar(porta[i]);
+            lcd.setCursor(2, 7 + i);
+            lcd.putChar(valv[i]);
+            if (13 + i < 32)
+            {
+                lcd.setCursor(2, 13 + i);
+                lcd.putChar(giro[i]);
+            }
+            lcd.delay(50);
+        }
+    }
 
 public:
     Visor(functionSetOption numLines, functionSetOption numCols,
@@ -47,10 +92,16 @@ public:
           uint8_t I2CAddress) : lcd(numLines, numCols, numPixels, SCLPin, SDAPin, I2CAddress)
     {
         lcd.home();
-        uint8_t minuto[4] = {32, 32, 32, 32};
-        printTime(minuto);
-        printCook("          ");
-        printOper("    ", "    ", "    ");
+        for (uint8_t i = 0; i < 32; i++)
+        {
+            lcd.putChar('.');
+            if (i == 15)
+                lcd.setCursor(2, 1);
+            lcd.delay(50);
+        }
+        init_printTime();
+        init_printCook();
+        init_printOper();
     }
     void printTime(uint8_t minuto[4])
     {
@@ -82,10 +133,5 @@ public:
 
 class Timer
 {
-private:
-    mkl_SystickPeriodicInterrupt systick;
-
-public:
-    Timer(uint8_t time_ms, systick_clockSource clock) : systick(time_ms, clock) {}
 };
 #endif /* SOURCES_DEVICES_DEVICES_H_ */

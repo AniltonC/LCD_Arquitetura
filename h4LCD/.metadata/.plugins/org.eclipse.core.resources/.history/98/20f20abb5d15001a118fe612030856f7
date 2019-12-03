@@ -91,10 +91,6 @@ extern "C"
 		redLed.writeBit(bit);
 		//if (count)
 		//{
-		if (t[2] == 48 && t[3] == 48)
-		{
-			bool stop = true;
-		}
 		if (divisor == 49)
 		{
 			t[3] -= 1;
@@ -121,6 +117,10 @@ extern "C"
 		}
 		else
 			divisor++;
+		if (t == (48, 48, 48, 48))
+		{
+			bool stop = true;
+		}
 		cont++;
 		//}
 	}
