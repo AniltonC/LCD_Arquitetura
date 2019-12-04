@@ -31,7 +31,7 @@ public:
     {
         port.writeBit(1);
     };
-    int getLed()
+    bool getLed()
     {
         return port.readBit();
     }
@@ -52,10 +52,18 @@ public:
         printTime(minuto);
         printCook("          ");
         printOper("    ", "    ", "    ");
+
+        lcd.home();
+        for (uint8_t i = 1; i < 41; i++)
+        {
+            if (i == 21)
+                lcd.setCursor(4, 1);
+            lcd.putChar(255);
+        }
     }
     void printTime(uint8_t minuto[4])
     {
-        lcd.home();
+        lcd.setCursor(2, 1);
         for (uint8_t i = 0; i < 4; i++)
         {
             lcd.putChar(minuto[i]);
@@ -66,17 +74,17 @@ public:
 
     void printCook(string cook)
     {
-        lcd.setCursor(1, 9);
+        lcd.setCursor(2, 10);
         lcd.putString(cook);
     }
 
     void printOper(string porta, string valv, string giro)
     {
-        lcd.setCursor(2, 1);
+        lcd.setCursor(3, 1);
         lcd.putString("P-" + porta);
-        lcd.setCursor(2, 7);
+        lcd.setCursor(3, 8);
         lcd.putString("V-" + valv);
-        lcd.setCursor(2, 13);
+        lcd.setCursor(3, 15);
         lcd.putString("G-" + giro);
     }
 };
@@ -93,7 +101,7 @@ public:
     {
         freqCounter = 0;
         newClock = 0;
-        counterLim = 50.0/newFreq;
+        counterLim = 50.0 / newFreq;
     }
     void increment()
     {

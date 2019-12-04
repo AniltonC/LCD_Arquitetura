@@ -10,6 +10,7 @@
 #include "MKL25Z4.h"
 #include "./Bibliotecas/Systick/mkl_SystickPeriodicInterrupt.h"
 #include "./Classes/devices.h"
+#include "./Classes/digital.h"
 
 /*!
  * 	Declara��o do led RGB interno da placa
@@ -26,15 +27,15 @@
  * 	e usar o clock da placa de 42MHz
  */
 mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(10, clock42Mhz);
-FreqDivisor divisorFreq = FreqDivisor(1);
-FreqDivisor diviFreq2hz = FreqDivisor(50);
+FreqDivisor clock1Hz = FreqDivisor(1);
 /*!
  * Declara��o da vari�vel a ser usada como flag para guardar o estado anterior dos led�s.
  */
 
-uint8_t divisor = 0;
-uint16_t cont = 0;
-uint8_t t[4] = {48, 48, 54, 48};
+uint8_t t[4] = {6, 0, 0, 0};
+TimeDecoder timeDecod = TimeDecoder();
+CookDecoder cookDecod = CookDecoder();
+uint8_t option = 0;
 
 /*!
  *   @brief    Realiza o blink dos leds vermelhor e azul.
@@ -44,41 +45,36 @@ extern "C"
 {
 	void SysTick_Handler(void)
 	{
-		divisorFreq.increment();
-		if (divisorFreq.getClock())
+		clock1Hz.increment();
+		if (clock1Hz.getClock())
 		{
 			t[3] -= 1;
-			if (t[3] < 48)
+			if (t[3] == 255)
 			{
 				t[2] -= 1;
-				t[3] = 57;
-				if (t[2] < 48)
+				t[3] = 9;
+				if (t[2] == 255)
 				{
 					t[1] -= 1;
-					t[2] = 53;
-					if (t[1] < 48)
+					t[2] = 5;
+					if (t[1] == 255)
 					{
-						//t[0] -= 1;
-						t[1] = 57;
-						/*
-						if (t[0] < 48)
+						t[0] -= 1;
+						t[1] = 9;
+						if (t[0] == 255)
 						{
-							t[0] = 53;
+							t[0] = 5;
 						}
-						*/
 					}
 				}
 			}
-			divisor = 0;
+			option++;
+			if (option == 7)
+				option = 0;
+			cookDecod.setInput(option);
 		}
 
-		diviFreq2hz.increment();
-		if (diviFreq2hz.getClock())
-		{
-			t[0]++;
-			if (t[0] == 57)
-				t[0] = 48;
-		}
+		timeDecod.setInput(t);
 	}
 }
 
@@ -91,11 +87,13 @@ extern "C"
  */
 int main(void)
 {
-	Visor LCD(mode2Lines, mode16Cols, mode5x10Dots, i2c_PTE1, i2c_PTE0, 0x27);
+	Visor LCD(mode4Lines, mode20Cols, mode5x10Dots, i2c_PTE1, i2c_PTE0, 0x27);
 	while (1)
 	{
 		//count = true;
-		LCD.printTime(t);
+		//uint8_t tempo[4] = timeDecod.getOutput();
+		LCD.printTime(timeDecod.getOutput());
+		LCD.printCook(cookDecod.getOutput());
 		/* Espera aqui por uma interrupcao */
 	}
 }
