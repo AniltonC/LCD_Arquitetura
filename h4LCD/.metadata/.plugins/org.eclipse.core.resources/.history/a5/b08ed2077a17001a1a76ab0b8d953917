@@ -40,11 +40,14 @@ uint8_t option = 0;
 /*!
  *   @brief    Realiza o blink dos leds vermelhor e azul.
  */
-
+uint8_t num1 = 25;
+uint8_t num2 = 10;
+uint8_t vaiNum[2] = 0;
 extern "C"
 {
 	void SysTick_Handler(void)
 	{
+		/*
 		clock1Hz.increment();
 		if (clock1Hz.getClock())
 		{
@@ -73,7 +76,11 @@ extern "C"
 				option = 0;
 			cookDecod.setInput(option);
 		}
-
+		*/
+		vaiNum[1] = (9 + 45);
+		vaiNum[0] = vaiNum[1] / 10;
+		t[0] = 5 + vaiNum[0];
+		t[3] = vaiNum[0];
 		timeDecod.setInput(t);
 	}
 }

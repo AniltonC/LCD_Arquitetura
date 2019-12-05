@@ -138,7 +138,7 @@ class Timer
 {
 private:
     uint8_t time[4];
-    bool enableDecrement;
+    bool enableTimer;
     void ula(bool operation, uint8_t input)
     {
         uint8_t vaiUm[3] = {0, 0, 0};
@@ -152,19 +152,6 @@ private:
             if (time[3] > 9)
             {
                 vaiUm[2] = time[3] / 10;
-                time[2] += vaiUm[2];
-
-                if (time[2] > 5)
-                {
-                    vaiUm[1] = time[2] / 10;
-                    time[1] += vaiUm[1];
-
-                    if (time[1] > 9)
-                    {
-                        vaiUm[0] = time[1] / 10;
-                        time[0] += vaiUm[0];
-                    }
-                }
             }
         }
     }
@@ -172,19 +159,19 @@ private:
 public:
     Timer()
     {
-        enableDecrement = 0;
+        enableTimer = 0;
         for (uint8_t i = 0; i < 4; i++)
             time[i] = 0;
     }
 
     void enableTimer(bool input)
     {
-        enableDecrement = input;
+        enableTimer = input;
     }
 
     void setTime(uint8_t time_in[4])
     {
-        if (!enableDecrement)
+        if (!enableTimer)
             for (uint8_t i = 0; i < 4; i++)
                 time[i] = time_in[i];
     }
@@ -209,14 +196,24 @@ public:
 
     void decrementTime()
     {
-        if (enableDecrement)
+        if (enableTimer)
         {
             if (!(time[0] == 0 && time[1] == time[2] == time[3]))
             {
             }
             else
-                enableDecrement = 0;
+                enableTimer = 0;
         }
     }
 };
+
+class Counter
+{
+private:
+public:
+    Counter()
+    {
+    }
+};
+
 #endif /* SOURCES_CLASSES_DIGITAL_H_ */
