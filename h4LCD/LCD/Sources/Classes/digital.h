@@ -134,52 +134,34 @@ public:
     }
 };
 
+typedef enum
+{
+    play,
+    pause
+} enableType;
 class Timer
 {
 private:
     uint8_t time[4];
     bool enableDecrement;
-    void ula(bool operation, uint8_t input)
-    {
-        uint8_t vaiUm[3] = {0, 0, 0};
-        /*
-         * operation == 0 : Subtração
-         * operation == 1 : Soma
-         */
-        if (operation)
-        {
-            time[3] += input;
-            if (time[3] > 9)
-            {
-                vaiUm[2] = time[3] / 10;
-                time[2] += vaiUm[2];
-
-                if (time[2] > 5)
-                {
-                    vaiUm[1] = time[2] / 10;
-                    time[1] += vaiUm[1];
-
-                    if (time[1] > 9)
-                    {
-                        vaiUm[0] = time[1] / 10;
-                        time[0] += vaiUm[0];
-                    }
-                }
-            }
-        }
-    }
+    uint8_t vaiUm[3] = {0, 0, 0};
+    bool fimTemp;
 
 public:
     Timer()
     {
         enableDecrement = 0;
+        fimTemp = 0;
         for (uint8_t i = 0; i < 4; i++)
             time[i] = 0;
     }
 
-    void enableTimer(bool input)
+    void enableTimer(enableType en)
     {
-        enableDecrement = input;
+        if (en == play)
+            enableDecrement = 1;
+        else
+            enableDecrement = 0;
     }
 
     void setTime(uint8_t time_in[4])
@@ -189,34 +171,77 @@ public:
                 time[i] = time_in[i];
     }
 
-    uint8_t getTime()
+    uint8_t *getTime()
     {
-        return *time;
+        return time;
     }
 
-    void increment(cookOption inc)
+    void increment(uint8_t input)
     {
-        switch (inc)
+        time[3] += input;
+        if (time[3] > 9)
         {
-        case i3:
+            vaiUm[2] = time[3] / 10;
+            time[3] -= 10 * vaiUm[2];
+            time[2] += vaiUm[2];
 
-            break;
+            if (time[2] > 5)
+            {
+                vaiUm[1] = time[2] / 6;
+                time[2] -= 6 * vaiUm[1];
+                time[1] += vaiUm[1];
 
-        default:
-            break;
+                if (time[1] > 9)
+                {
+                    vaiUm[0] = time[1] / 10;
+                    time[1] -= 10 * vaiUm[0];
+                    time[0] += vaiUm[0];
+
+                    if (time[0] > 9)
+                        time[0] -= 10;
+                }
+            }
         }
     }
 
-    void decrementTime()
+    void decrement()
     {
         if (enableDecrement)
         {
-            if (!(time[0] == 0 && time[1] == time[2] == time[3]))
+            if (time[0] == 0 && time[1] == 0 && time[2] == 0 && time[3] == 0)
             {
+                enableDecrement = 0;
+                fimTemp = 1;
             }
             else
-                enableDecrement = 0;
+            {
+                time[3] -= 1;
+                if (time[3] == 255)
+                {
+                    time[2] -= 1;
+                    time[3] = 9;
+                    if (time[2] == 255)
+                    {
+                        time[1] -= 1;
+                        time[2] = 5;
+                        if (time[1] == 255)
+                        {
+                            time[0] -= 1;
+                            time[1] = 9;
+                            if (time[0] == 255)
+                            {
+                                time[0] = 5;
+                            }
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    bool endTimer()
+    {
+        return fimTemp;
     }
 };
 #endif /* SOURCES_CLASSES_DIGITAL_H_ */

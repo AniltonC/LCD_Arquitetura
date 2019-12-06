@@ -394,3 +394,155 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.somniumtech
 
 !ENTRY com.processorexpert.core.ide.wizard.ui 2 0 2019-12-05 11:42:58.086
 !MESSAGE External elements location /opt/Freescale/KDS_v3/eclipse/ProcessorExpert/BoardConfigurations/wizard_data does not exist
+
+!ENTRY org.eclipse.cdt.core 4 0 2019-12-06 11:16:58.353
+!MESSAGE Error: Error
+!STACK 1
+org.eclipse.core.runtime.CoreException: Error
+	at org.eclipse.cdt.internal.core.pdom.db.Database.databaseCorruptionDetected(Database.java:292)
+	at org.eclipse.cdt.internal.core.pdom.db.Database.getChunk(Database.java:274)
+	at org.eclipse.cdt.internal.core.pdom.db.Database.getInt(Database.java:478)
+	at org.eclipse.cdt.internal.core.pdom.db.Database.getString(Database.java:579)
+	at org.eclipse.cdt.internal.core.pdom.dom.PDOMNamedNode.getDBName(PDOMNamedNode.java:72)
+	at org.eclipse.cdt.internal.core.pdom.dom.FindBinding$DefaultBindingBTreeComparator.compare(FindBinding.java:40)
+	at org.eclipse.cdt.internal.core.pdom.dom.FindBinding$NestedBindingsBTreeComparator.compare(FindBinding.java:143)
+	at org.eclipse.cdt.internal.core.pdom.db.BTree.insert(BTree.java:173)
+	at org.eclipse.cdt.internal.core.pdom.db.BTree.insert(BTree.java:188)
+	at org.eclipse.cdt.internal.core.pdom.db.BTree.insert(BTree.java:188)
+	at org.eclipse.cdt.internal.core.pdom.db.BTree.insert(BTree.java:188)
+	at org.eclipse.cdt.internal.core.pdom.db.BTree.insert(BTree.java:105)
+	at org.eclipse.cdt.internal.core.pdom.dom.PDOMLinkage.insertIntoNestedBindingsIndex(PDOMLinkage.java:322)
+	at org.eclipse.cdt.internal.core.pdom.dom.cpp.PDOMCPPLinkage.createBinding(PDOMCPPLinkage.java:575)
+	at org.eclipse.cdt.internal.core.pdom.dom.cpp.PDOMCPPLinkage.addBinding(PDOMCPPLinkage.java:424)
+	at org.eclipse.cdt.internal.core.pdom.dom.cpp.PDOMCPPLinkage.addBinding(PDOMCPPLinkage.java:370)
+	at org.eclipse.cdt.internal.core.pdom.dom.PDOMFile.createPDOMName(PDOMFile.java:515)
+	at org.eclipse.cdt.internal.core.pdom.dom.PDOMFile.addNames(PDOMFile.java:482)
+	at org.eclipse.cdt.internal.core.pdom.WritablePDOM.addFileContent(WritablePDOM.java:154)
+	at org.eclipse.cdt.internal.core.index.WritableCIndex.setFileContent(WritableCIndex.java:87)
+	at org.eclipse.cdt.internal.core.pdom.PDOMWriter.storeFileInIndex(PDOMWriter.java:616)
+	at org.eclipse.cdt.internal.core.pdom.PDOMWriter.storeSymbolsInIndex(PDOMWriter.java:316)
+	at org.eclipse.cdt.internal.core.pdom.PDOMWriter.addSymbols(PDOMWriter.java:273)
+	at org.eclipse.cdt.internal.core.pdom.AbstractIndexerTask.writeToIndex(AbstractIndexerTask.java:1279)
+	at org.eclipse.cdt.internal.core.pdom.AbstractIndexerTask.parseFile(AbstractIndexerTask.java:1094)
+	at org.eclipse.cdt.internal.core.pdom.AbstractIndexerTask.parseLinkage(AbstractIndexerTask.java:898)
+	at org.eclipse.cdt.internal.core.pdom.AbstractIndexerTask.runTask(AbstractIndexerTask.java:554)
+	at org.eclipse.cdt.internal.core.pdom.indexer.PDOMIndexerTask.run(PDOMIndexerTask.java:161)
+	at org.eclipse.cdt.internal.core.pdom.PDOMIndexerJob.run(PDOMIndexerJob.java:149)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.cdt.core 4 0 2019-12-06 11:16:58.382
+!MESSAGE Error
+
+!ENTRY org.eclipse.core.jobs 4 2 2019-12-06 11:21:58.361
+!MESSAGE An internal error occurred during: "Periodic workspace save.".
+!STACK 0
+java.lang.IllegalArgumentException: Cannot set lower sequence number for root (previous: 4, new: 1). Location: /home/anilton/Desktop/Git Repositories/LCD_Arquitetura/h4LCD/.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources
+	at org.eclipse.core.runtime.Assert.isLegal(Assert.java:63)
+	at org.eclipse.core.internal.resources.SaveManager.validateMasterTableBeforeSave(SaveManager.java:1599)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1263)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1255)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1232)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1144)
+	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:51)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2019-12-06 11:33:54.901
+!MESSAGE An internal error occurred during: "Periodic workspace save.".
+!STACK 0
+java.lang.IllegalArgumentException: Cannot set lower sequence number for root (previous: 4, new: 1). Location: /home/anilton/Desktop/Git Repositories/LCD_Arquitetura/h4LCD/.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources
+	at org.eclipse.core.runtime.Assert.isLegal(Assert.java:63)
+	at org.eclipse.core.internal.resources.SaveManager.validateMasterTableBeforeSave(SaveManager.java:1599)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1263)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1255)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1232)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1144)
+	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:51)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2019-12-06 12:11:01.053
+!MESSAGE An internal error occurred during: "Periodic workspace save.".
+!STACK 0
+java.lang.IllegalArgumentException: Cannot set lower sequence number for root (previous: 4, new: 1). Location: /home/anilton/Desktop/Git Repositories/LCD_Arquitetura/h4LCD/.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources
+	at org.eclipse.core.runtime.Assert.isLegal(Assert.java:63)
+	at org.eclipse.core.internal.resources.SaveManager.validateMasterTableBeforeSave(SaveManager.java:1599)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1263)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1255)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1232)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1144)
+	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:51)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.cdt.core 4 0 2019-12-06 12:16:18.936
+!MESSAGE Error: Error
+!STACK 1
+org.eclipse.core.runtime.CoreException: Error
+	at org.eclipse.cdt.internal.core.pdom.db.Database.databaseCorruptionDetected(Database.java:292)
+	at org.eclipse.cdt.internal.core.pdom.db.Database.getChunk(Database.java:274)
+	at org.eclipse.cdt.internal.core.pdom.db.Database.getInt(Database.java:478)
+	at org.eclipse.cdt.internal.core.pdom.db.Database.getString(Database.java:579)
+	at org.eclipse.cdt.internal.core.pdom.dom.PDOMNamedNode.getDBName(PDOMNamedNode.java:72)
+	at org.eclipse.cdt.internal.core.pdom.dom.FindBinding$DefaultBindingBTreeComparator.compare(FindBinding.java:40)
+	at org.eclipse.cdt.internal.core.pdom.dom.FindBinding$NestedBindingsBTreeComparator.compare(FindBinding.java:143)
+	at org.eclipse.cdt.internal.core.pdom.db.BTree.insert(BTree.java:173)
+	at org.eclipse.cdt.internal.core.pdom.db.BTree.insert(BTree.java:188)
+	at org.eclipse.cdt.internal.core.pdom.db.BTree.insert(BTree.java:188)
+	at org.eclipse.cdt.internal.core.pdom.db.BTree.insert(BTree.java:188)
+	at org.eclipse.cdt.internal.core.pdom.db.BTree.insert(BTree.java:105)
+	at org.eclipse.cdt.internal.core.pdom.dom.PDOMLinkage.insertIntoNestedBindingsIndex(PDOMLinkage.java:322)
+	at org.eclipse.cdt.internal.core.pdom.dom.cpp.PDOMCPPLinkage.createBinding(PDOMCPPLinkage.java:575)
+	at org.eclipse.cdt.internal.core.pdom.dom.cpp.PDOMCPPLinkage.addBinding(PDOMCPPLinkage.java:424)
+	at org.eclipse.cdt.internal.core.pdom.dom.cpp.PDOMCPPLinkage.addBinding(PDOMCPPLinkage.java:370)
+	at org.eclipse.cdt.internal.core.pdom.dom.PDOMFile.createPDOMName(PDOMFile.java:515)
+	at org.eclipse.cdt.internal.core.pdom.dom.PDOMFile.addNames(PDOMFile.java:482)
+	at org.eclipse.cdt.internal.core.pdom.WritablePDOM.addFileContent(WritablePDOM.java:154)
+	at org.eclipse.cdt.internal.core.index.WritableCIndex.setFileContent(WritableCIndex.java:87)
+	at org.eclipse.cdt.internal.core.pdom.PDOMWriter.storeFileInIndex(PDOMWriter.java:616)
+	at org.eclipse.cdt.internal.core.pdom.PDOMWriter.storeSymbolsInIndex(PDOMWriter.java:316)
+	at org.eclipse.cdt.internal.core.pdom.PDOMWriter.addSymbols(PDOMWriter.java:273)
+	at org.eclipse.cdt.internal.core.pdom.AbstractIndexerTask.writeToIndex(AbstractIndexerTask.java:1279)
+	at org.eclipse.cdt.internal.core.pdom.AbstractIndexerTask.parseFile(AbstractIndexerTask.java:1094)
+	at org.eclipse.cdt.internal.core.pdom.AbstractIndexerTask.parseLinkage(AbstractIndexerTask.java:898)
+	at org.eclipse.cdt.internal.core.pdom.AbstractIndexerTask.runTask(AbstractIndexerTask.java:554)
+	at org.eclipse.cdt.internal.core.pdom.indexer.PDOMIndexerTask.run(PDOMIndexerTask.java:161)
+	at org.eclipse.cdt.internal.core.pdom.PDOMIndexerJob.run(PDOMIndexerJob.java:149)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+!SUBENTRY 1 org.eclipse.cdt.core 4 0 2019-12-06 12:16:18.937
+!MESSAGE Error
+
+!ENTRY org.eclipse.core.jobs 4 2 2019-12-06 12:16:44.390
+!MESSAGE An internal error occurred during: "Periodic workspace save.".
+!STACK 0
+java.lang.IllegalArgumentException: Cannot set lower sequence number for root (previous: 4, new: 1). Location: /home/anilton/Desktop/Git Repositories/LCD_Arquitetura/h4LCD/.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources
+	at org.eclipse.core.runtime.Assert.isLegal(Assert.java:63)
+	at org.eclipse.core.internal.resources.SaveManager.validateMasterTableBeforeSave(SaveManager.java:1599)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1263)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1255)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1232)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1144)
+	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:51)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2019-12-06 12:28:04.688
+!MESSAGE An internal error occurred during: "Periodic workspace save.".
+!STACK 0
+java.lang.IllegalArgumentException: Cannot set lower sequence number for root (previous: 4, new: 1). Location: /home/anilton/Desktop/Git Repositories/LCD_Arquitetura/h4LCD/.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources
+	at org.eclipse.core.runtime.Assert.isLegal(Assert.java:63)
+	at org.eclipse.core.internal.resources.SaveManager.validateMasterTableBeforeSave(SaveManager.java:1599)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1263)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1255)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1232)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1144)
+	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:51)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.core.jobs 4 2 2019-12-06 12:47:09.052
+!MESSAGE An internal error occurred during: "Periodic workspace save.".
+!STACK 0
+java.lang.IllegalArgumentException: Cannot set lower sequence number for root (previous: 4, new: 1). Location: /home/anilton/Desktop/Git Repositories/LCD_Arquitetura/h4LCD/.metadata/.plugins/org.eclipse.core.resources/.safetable/org.eclipse.core.resources
+	at org.eclipse.core.runtime.Assert.isLegal(Assert.java:63)
+	at org.eclipse.core.internal.resources.SaveManager.validateMasterTableBeforeSave(SaveManager.java:1599)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1263)
+	at org.eclipse.core.internal.resources.SaveManager.saveMasterTable(SaveManager.java:1255)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1232)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1144)
+	at org.eclipse.core.internal.resources.DelayedSnapshotJob.run(DelayedSnapshotJob.java:51)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
