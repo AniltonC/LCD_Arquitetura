@@ -108,29 +108,34 @@ public:
 class OperDecoder
 {
 private:
-    string oper_out[3];
+    operationType oper_out;
 
 public:
     OperDecoder()
     {
-        for (uint8_t i = 0; i < 3; i++)
-
-            oper_out[i] = "   ";
+        oper_out.porta = "   ";
+        oper_out.valvula = "   ";
+        oper_out.giro = "   ";
     }
     void setInput(bool oper_in[3])
     {
-        for (uint8_t i = 0; i < 3; i++)
-        {
-            if (oper_in[i])
-                oper_out[i] = "ON ";
-            else
-                oper_out[i] = "OFF";
-        }
+        if (oper_in[0])
+            oper_out.porta = "ON ";
+        else
+            oper_out.porta = "OFF";
+        if (oper_in[1])
+            oper_out.valvula = "ON ";
+        else
+            oper_out.valvula = "OFF";
+        if (oper_in[2])
+            oper_out.giro = "ON ";
+        else
+            oper_out.giro = "OFF";
     }
 
-    string getOutput()
+    operationType getOutput()
     {
-        return *oper_out;
+        return oper_out;
     }
 };
 

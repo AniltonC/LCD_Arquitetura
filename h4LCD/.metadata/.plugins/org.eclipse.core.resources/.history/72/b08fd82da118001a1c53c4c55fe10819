@@ -37,10 +37,10 @@ public:
     }
 };
 
-typedef struct
+typedef struct operationType
 {
     string porta, valvula, giro;
-}operationType;
+};
 class Visor
 {
 private:
@@ -101,15 +101,15 @@ class FreqDivisor
 {
 private:
     //mkl_SystickPeriodicInterrupt clockMaq;
-    uint8_t freqCounter, counterLim;
+    float freqCounter, counterLim;
     bool newClock;
 
 public:
-    FreqDivisor(uint8_t newFreq)
+    FreqDivisor(float newFreq)
     {
         freqCounter = 0;
         newClock = 0;
-        counterLim = 50 / newFreq;
+        counterLim = 50.0 / newFreq;
     }
     void increment()
     {

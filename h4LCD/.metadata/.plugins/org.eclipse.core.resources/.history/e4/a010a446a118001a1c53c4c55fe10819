@@ -26,10 +26,10 @@ mkl_GPIOPort redLed(gpio_PTB18);
  * 	Declara��o do objeto systick e configura��o para acontecer uma interrup��o a cada 100ms
  * 	e usar o clock da placa de 42MHz
  */
-mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(10, clock42Mhz);
+//mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(10, clock42Mhz);
 FreqDivisor clock1Hz = FreqDivisor(1);
-FreqDivisor clock5Hz = FreqDivisor(2);
-//FreqDivisor clock10Hz = FreqDivisor(0.3);
+FreqDivisor clock5Hz = FreqDivisor(0.5);
+FreqDivisor clock10Hz = FreqDivisor(0.3);
 /*!
  * Declara��o da vari�vel a ser usada como flag para guardar o estado anterior dos led�s.
  */
@@ -51,9 +51,26 @@ extern "C"
 	void SysTick_Handler(void)
 	{
 		clock1Hz.increment();
+		clock5Hz.increment();
+		clock10Hz.increment();
+
+		if (clock5Hz.getClock())
+			operacoes[0] = !operacoes[0];
+		if (clock10Hz.getClock())
+			operacoes[1] = !operacoes[1];
 
 		if (clock1Hz.getClock())
+		{
+			operacoes[2] = !operacoes[2];
 			Temporizador.decrement();
+			option++;
+			if (option == 7)
+				option = 0;
+			cookDecod.setInput(option);
+		}
+
+		timeDecod.setInput(Temporizador.getTime());
+		operDecod.setInput(operacoes);
 	}
 }
 
@@ -73,7 +90,6 @@ int main(void)
 	Temporizador.enableTimer(play);
 	while (1)
 	{
-		timeDecod.setInput(Temporizador.getTime());
 		LCD.printTime(timeDecod.getOutput());
 		LCD.printCook(cookDecod.getOutput());
 		LCD.printOper(operDecod.getOutput());
