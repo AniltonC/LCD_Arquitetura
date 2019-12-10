@@ -68,7 +68,7 @@ public:
     {
         cook_out = "        ";
     }
-    void setInput(uint8_t cook_in)
+    void setInput(cookOption cook_in)
     {
         switch (cook_in)
         {

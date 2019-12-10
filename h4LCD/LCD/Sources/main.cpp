@@ -54,6 +54,8 @@ extern "C"
 
 		if (clock1Hz.getClock())
 			Temporizador.decrement();
+			Temporizador.setTime(time);
+			cookDecod.setInput(pp);
 	}
 }
 
@@ -73,6 +75,14 @@ int main(void)
 	Temporizador.enableTimer(play);
 	while (1)
 	{
+
+		if(time[2] ==  4){
+			cookDecod.setInput(pp);
+			time[0]=1;
+			time[1]=0;
+			time[2]=3;
+			time[3]=0;
+		}
 		timeDecod.setInput(Temporizador.getTime());
 		LCD.printTime(timeDecod.getOutput());
 		LCD.printCook(cookDecod.getOutput());
