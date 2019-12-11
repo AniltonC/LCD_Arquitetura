@@ -82,7 +82,7 @@ public:
             cook_out = " PIZZA  ";
             return;
         case la:
-            cook_out = "LASANHA ";
+            cook_out = " LASANHA ";
             return;
         case i3:
             cook_out = " INC+3  ";

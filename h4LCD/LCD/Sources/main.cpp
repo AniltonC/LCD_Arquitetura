@@ -14,7 +14,7 @@
 
 /* Bluetooth */
 #include <assert.h>
-#include "../Bibliotecas/Bluetooth/mkl_HC06BluetoothSlave.h"
+#include "./Bibliotecas/Bluetooth/mkl_HC06BluetoothSlave.h"
 
 mkl_HC06BluetoothSlave bt(uart0_PTA2, uart0_PTA1);  //! Bluetooth na UART 0
 mkl_GPIOPort ledVerde(gpio_PTB19);                  //! LED da placa
@@ -36,10 +36,10 @@ mkl_GPIOPort redLed(gpio_PTB18);
  * 	Declara��o do objeto systick e configura��o para acontecer uma interrup��o a cada 100ms
  * 	e usar o clock da placa de 42MHz
  */
-mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(10, clock42Mhz);
+// mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(10, clock42Mhz);
 FreqDivisor clock1Hz = FreqDivisor(1);
 FreqDivisor clock5Hz = FreqDivisor(2);
-//FreqDivisor clock10Hz = FreqDivisor(0.3);
+FreqDivisor clock10Hz = FreqDivisor(0.3);
 /*!
  * Declara��o da vari�vel a ser usada como flag para guardar o estado anterior dos led�s.
  */
@@ -52,22 +52,22 @@ Timer Temporizador = Timer();
 uint8_t input = 40, option = 0;
 bool operacoes[3] = {0, 1, 0};
 
-/*!
- *   @brief    Realiza o blink dos leds vermelhor e azul.
- */
+// /*!
+//  *   @brief    Realiza o blink dos leds vermelhor e azul.
+//  */
 
-extern "C"
-{
-	void SysTick_Handler(void)
-	{
-		clock1Hz.increment();
+// extern "C"
+// {
+// 	void SysTick_Handler(void)
+// 	{
+// 		clock1Hz.increment();
 
-		if (clock1Hz.getClock())
-			Temporizador.decrement();
-			Temporizador.setTime(time);
-			cookDecod.setInput(pp);
-	}
-}
+// 		if (clock1Hz.getClock())
+// 			Temporizador.decrement();
+// 			Temporizador.setTime(time);
+// 			cookDecod.setInput(pp);
+// 	}
+// }
 
 
 /*!
@@ -137,37 +137,84 @@ int main(void)
 	setupBluetooth();  //! Configura o perifÃ©rico bluetooth
 	__enable_irq();
 
-		/*!
-	 * Caso o dado enviado seja igual ao recebido
-	 * o LED verde da placa acenderÃ¡.
-	 */
-	while (true) {
-		if(buf == '1')
-			ledVerde.writeBit(false);
-		if(buf == '2')
-			ledVerde.writeBit(true);
-	}
+
 
 	Visor LCD(mode4Lines, mode20Cols, mode5x10Dots, i2c_PTE1, i2c_PTE0, 0x27);
-	Temporizador.setTime(time);
+	// Temporizador.setTime(time);
 	Temporizador.enableTimer(play);
 	while (1)
 	{
 
-		if(time[2] ==  4){
-			cookDecod.setInput(pp);
-			time[0]=1;
-			time[1]=0;
-			time[2]=3;
-			time[3]=0;
+		/*!
+		* Caso o dado enviado seja igual ao recebido
+		* o LED verde da placa acenderÃ¡.
+		*/
+		while (true) {
+			if(buf == 'A'){
+				ledVerde.writeBit(true);
+				cookDecod.setInput(i3);
+			}
+			if(buf == 'B'){
+				ledVerde.writeBit(true);
+				cookDecod.setInput(i5);
+			}
+			if(buf == 'C'){
+				ledVerde.writeBit(true);
+				cookDecod.setInput(i7);
+			}
+			if(buf == 'D'){
+				ledVerde.writeBit(true);
+				cookDecod.setInput(la);
+
+				time[0]=0;
+				time[1]=2;
+				time[2]=0;
+				time[3]=2;
+			}
+			if(buf == 'E'){
+				ledVerde.writeBit(false);
+				cookDecod.setInput(pz);
+
+				time[0]=0;
+				time[1]=1;
+				time[2]=0;
+				time[3]=1;
+			}
+			if(buf == 'F'){
+				ledVerde.writeBit(true);
+				cookDecod.setInput(pp);
+
+				time[0]=0;
+				time[1]=0;
+				time[2]=3;
+				time[3]=0;
+			}
+			if(buf == 'G'){
+				operacoes[1] = 1;
+				operacoes[2] = 1;
+			}
+			if(buf == 'H'){
+				operacoes[1] = 0;
+				operacoes[2] = 0;
+			}
+			
+
+			clock1Hz.increment();
+
+			if (clock1Hz.getClock()){
+				Temporizador.decrement();
+				Temporizador.setTime(time);
+				operDecod.setInput(operacoes);
+			}
+
+			timeDecod.setInput(Temporizador.getTime());
+			LCD.printTime(timeDecod.getOutput());
+			LCD.printCook(cookDecod.getOutput());
+			LCD.printOper(operDecod.getOutput());
+			if (Temporizador.endTimer())
+				fimTimer.turnOn();
+			else
+				fimTimer.turnOff();
 		}
-		timeDecod.setInput(Temporizador.getTime());
-		LCD.printTime(timeDecod.getOutput());
-		LCD.printCook(cookDecod.getOutput());
-		LCD.printOper(operDecod.getOutput());
-		if (Temporizador.endTimer())
-			fimTimer.turnOn();
-		else
-			fimTimer.turnOff();
-	}
+		}
 }
