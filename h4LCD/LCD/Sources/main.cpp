@@ -137,6 +137,8 @@ int main(void)
 	setupBluetooth();  //! Configura o perifÃ©rico bluetooth
 	__enable_irq();
 
+	bool newTime = false;
+
 
 
 	Visor LCD(mode4Lines, mode20Cols, mode5x10Dots, i2c_PTE1, i2c_PTE0, 0x27);
@@ -170,6 +172,7 @@ int main(void)
 				time[1]=2;
 				time[2]=0;
 				time[3]=2;
+				newTime = true;
 			}
 			if(buf == 'E'){
 				ledVerde.writeBit(false);
@@ -179,6 +182,7 @@ int main(void)
 				time[1]=1;
 				time[2]=0;
 				time[3]=1;
+				newTime = true;
 			}
 			if(buf == 'F'){
 				ledVerde.writeBit(true);
@@ -188,6 +192,7 @@ int main(void)
 				time[1]=0;
 				time[2]=3;
 				time[3]=0;
+				newTime = true;
 			}
 			if(buf == 'G'){
 				operacoes[1] = 1;
@@ -203,7 +208,10 @@ int main(void)
 
 			if (clock1Hz.getClock()){
 				Temporizador.decrement();
-				Temporizador.setTime(time);
+				if(newTime){
+					Temporizador.setTime(time);
+					newTime = false;
+				}
 				operDecod.setInput(operacoes);
 			}
 
