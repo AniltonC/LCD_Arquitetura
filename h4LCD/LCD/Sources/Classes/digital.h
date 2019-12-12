@@ -38,8 +38,20 @@ public:
             time_out[0] = time_in[0] + 48;
             time_out[1] = time_in[1] + 48;
         }
-        time_out[2] = time_in[2] + 48;
-        time_out[3] = time_in[3] + 48;
+
+        if (time_in[2] == 0)
+        {
+            time_out[2] = 32;
+            if (time_in[3] == 0)
+                time_out[3] = 32;
+            else
+                time_out[3] = time_in[3] + 48;
+        }
+        else
+        {
+            time_out[2] = time_in[2] + 48;
+            time_out[3] = time_in[3] + 48;
+        }
     }
 
     uint8_t *getOutput()
@@ -50,7 +62,7 @@ public:
 
 typedef enum
 {
-    e,
+    ed,
     pp,
     pz,
     la,
@@ -68,11 +80,11 @@ public:
     {
         cook_out = "        ";
     }
-    void setInput(uint8_t cook_in)
+    void setInput(cookOption cook_in)
     {
         switch (cook_in)
         {
-        case e:
+        case ed:
             cook_out = " EDICAO ";
             return;
         case pp:
@@ -142,7 +154,8 @@ public:
 typedef enum
 {
     play,
-    pause
+    pause,
+    cancel
 } enableType;
 class Timer
 {

@@ -49,25 +49,22 @@ bool operacoes[3] = {0, 1, 0};
 
 DigitalFactory digitalFact_Service = DigitalFactory();
 Memoria memory_Service = Memoria();
-PrintService print_Service = PrintService(&memory_Service, digitalFact_Service.getPtrTimeDecod());
+PrintService print_Service = PrintService(*memory_Service, digitalFact_Service);
 
 extern "C"
 {
 	void SysTick_Handler(void)
 	{
 		clock1Hz.increment();
-		if (clock1Hz.getClock())
-		{
-			time[3]++;
-			if (time[3] == 10)
-				time[3] = 0;
-				memory_Service.setTempoGeral(time);
-		}
 		/*
 		if (clock1Hz.getClock())
 			Temporizador.decrement();
 		*/
-		//setou = memory_Service.setTempoGeral(time);
+		if (time[3] == 9)
+			time[3] = 0;
+		else
+			time[3]++;
+		memory_Service.setTempoGeral(time);
 	}
 }
 

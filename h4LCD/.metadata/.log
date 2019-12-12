@@ -14,3 +14,26 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.somniumtech
 
 !ENTRY org.eclipse.cdt.core 1 0 2019-12-06 20:26:06.781
 !MESSAGE Indexed 'LCD' (2 sources, 19 headers) in 1.16 sec: 1,359 declarations; 2,737 references; 0 unresolved inclusions; 58 syntax errors; 23 unresolved names (0.56%)
+!SESSION 2019-12-10 16:46:57.705 -----------------------------------------------
+eclipse.buildId=3.2.0.201603041649
+java.version=1.7.0_76
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product com.somniumtech.branding.kds.ide
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.somniumtech.branding.kds.ide
+
+!ENTRY org.eclipse.core.resources 2 10035 2019-12-10 16:47:03.715
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.processorexpert.core.ide.wizard.ui 2 0 2019-12-10 16:47:31.458
+!MESSAGE External elements location /opt/Freescale/KDS_v3/eclipse/ProcessorExpert/BoardConfigurations/wizard_data does not exist
+!SESSION 2019-12-11 13:51:49.166 -----------------------------------------------
+eclipse.buildId=3.2.0.201603041649
+java.version=1.7.0_76
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product com.somniumtech.branding.kds.ide
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -product com.somniumtech.branding.kds.ide
+
+!ENTRY com.processorexpert.core.ide.wizard.ui 2 0 2019-12-11 13:52:19.649
+!MESSAGE External elements location /opt/Freescale/KDS_v3/eclipse/ProcessorExpert/BoardConfigurations/wizard_data does not exist
