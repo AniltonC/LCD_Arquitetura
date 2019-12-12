@@ -204,7 +204,7 @@ public:
 
     void doService()
     {
-        //timerClock1Hz.increment();
+        timerClock1Hz.increment();
         if (timerClock1Hz.getClock())
         {
             thisTimer->decrement();

@@ -155,7 +155,6 @@ typedef enum
 {
     play,
     pause,
-    cancel
 } enableType;
 class Timer
 {
@@ -182,9 +181,16 @@ public:
             enableDecrement = 0;
     }
 
+    void cancelTimer()
+    {
+        for (uint8_t i = 0; i < 4; i++)
+            time[i] = 0;
+    }
+
     void setTime(uint8_t time_in[4])
     {
         if (!enableDecrement)
+            fimTemp = 0;
             for (uint8_t i = 0; i < 4; i++)
                 time[i] = time_in[i];
     }
