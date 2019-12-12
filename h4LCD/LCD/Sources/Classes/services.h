@@ -38,6 +38,27 @@ public:
     OperDecoder *getPtrOperDecod() { return &ptrOperDec; }
 };
 
+typedef struct
+{
+    bool tempoGeral = 0,
+         cookGeral = 0,
+         operGeral = 0,
+         actionGeral = 0,
+         cancelAct = 0,
+         fimLed = 0;
+} sId_doService;
+
+typedef enum
+{
+    editServ,
+    timeServ,
+    incmServ,
+    actiServ,
+    fLedServ,
+    prntServ
+
+} sId;
+
 class Memoria
 {
 private:
@@ -49,6 +70,8 @@ private:
     bool thisFimTimer, doFimLedAct;
 
 public:
+    sId_doService servToDo;
+
     Memoria()
     {
         thisCookGeral = ed;
@@ -57,18 +80,17 @@ public:
         thisFimTimer = 0;
     }
 
-    bool setTempoGeral(uint8_t tempo[4])
+    void setTempoGeral(uint8_t tempo[4])
     {
-        bool saida = 0;
+        servToDo.tempoGeral = 0;
         for (uint8_t i = 0; i < 4; i++)
         {
             if (tempo_geral[i] != tempo[i])
             {
                 tempo_geral[i] = tempo[i];
-                saida = 1;
+                servToDo.tempoGeral = 1;
             }
         }
-        return saida;
     }
     void TimerUpdate(uint8_t timer_up[4])
     {
@@ -78,54 +100,55 @@ public:
 
     void setIsFimTimer(bool fim)
     {
+        servToDo.fimLed = 0;
         if (thisFimTimer != fim)
+        {
             thisFimTimer = fim;
+            servToDo.fimLed = 1;
+        }
     }
 
-    bool setCookGeral(cookOption cookIn)
+    void setCookGeral(cookOption cookIn)
     {
+        servToDo.cookGeral = 0;
         if (cookIn != thisCookGeral)
         {
             thisCookGeral = cookIn;
-            return 1;
+            servToDo.cookGeral = 1;
         }
-        else
-            return 0;
     }
 
-    bool setOperGeral(bool operIn[3])
+    void setOperGeral(bool operIn[3])
     {
-        bool saida = 0;
+        servToDo.operGeral = 0;
         for (uint8_t i = 0; i < 3; i++)
         {
             if (operIn[i] != operGeral[i])
             {
                 operGeral[i] = operIn[i];
-                saida = 1;
+                servToDo.operGeral = 0;
             }
         }
-        return saida;
     }
 
-    bool setAction(enableType action)
+    void setAction(enableType action)
     {
+        servToDo.actionGeral = 0;
         if (thisAction != action)
         {
             thisAction = action;
-            return 1;
+            servToDo.actionGeral = 1;
         }
-        else
-            return 0;
     }
 
-    bool setCancelAction(bool cancel)
+    void setCancelAction(bool cancel)
     {
+        servToDo.cancelAct = 0;
         if (thisCancelAction != cancel)
         {
             thisCancelAction = cancel;
-            return 1;
+            servToDo.cancelAct = 1;
         }
-        return 0;
     }
 
     uint8_t *getTempoGeral() { return tempo_geral; }
@@ -164,6 +187,7 @@ public:
         thisTimer->setTime(thisMemoriaGeral->getTempoGeral());
         thisCookDecod->setInput(thisMemoriaGeral->getCookGeral());
         thisOperDecod->setInput(thisMemoriaGeral->getOperGeral());
+        thisTimeDecod->setInput(thisTimer->getTime());
     }
 };
 
@@ -173,7 +197,6 @@ private:
     Memoria *thisMemoriaGeral;
     Timer *thisTimer;
     TimeDecoder *thisTimeDecod;
-    FreqDivisor timerClock1Hz = FreqDivisor(1);
     Led fimLed = Led(gpio_PTB18);
 
 public:
@@ -204,13 +227,9 @@ public:
 
     void doService()
     {
-        //timerClock1Hz.increment();
-        if (timerClock1Hz.getClock())
-        {
-            thisTimer->decrement();
-            thisMemoriaGeral->TimerUpdate(thisTimer->getTime());
-        }
-        thisTimeDecod->setInput(thisTimer->getTime());
+        thisTimer->decrement();
+        thisMemoriaGeral->setIsFimTimer(thisTimer->endTimer());
+        thisMemoriaGeral->TimerUpdate(thisTimer->getTime());
     }
 };
 

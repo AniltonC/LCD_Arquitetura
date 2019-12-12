@@ -190,7 +190,7 @@ public:
     void setTime(uint8_t time_in[4])
     {
         if (!enableDecrement)
-            fimTemp = 0;
+            //fimTemp = 0;
             for (uint8_t i = 0; i < 4; i++)
                 time[i] = time_in[i];
     }
@@ -232,6 +232,7 @@ public:
     {
         if (enableDecrement)
         {
+            fimTemp = 0;
             if (time[0] == 0 && time[1] == 0 && time[2] == 0 && time[3] == 0)
             {
                 enableDecrement = 0;

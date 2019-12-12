@@ -11,24 +11,28 @@ EditorService monEditorServ = EditorService(&monMemory, monDigiFact.getPtrTimer(
 
 TimerService monTimerServ = TimerService(&monMemory, monDigiFact.getPtrTimer(), monDigiFact.getPtrTimeDecod());
 
-PrintService monPrintServ = PrintService(&monMemory, monDigiFact.getPtrTimeDecod(), monDigiFact.getPtrCookDecod(), monDigiFact.getPtrOperDecod());
+//PrintService monPrintServ = PrintService(&monMemory, monDigiFact.getPtrTimeDecod(), monDigiFact.getPtrCookDecod(), monDigiFact.getPtrOperDecod());
 
 /*
  * SYSTICK TIMER
  */
 mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(10, clock42Mhz);
-
+FreqDivisor clock1Hz = FreqDivisor(1);
+enableType doIntService = pause;
 extern "C"
 {
-    void Systick_Handler(void)
+    void SysTick_Handler(void)
     {
-        //monTimerServ.doService();
+        clock1Hz.increment();
+        if (doIntService == play)
+            if (clock1Hz.getClock())
+                monTimerServ.doService();
     }
 }
 
 int main(void)
 {
-    uint8_t tempo[4] = {2, 3, 5, 8};
+    uint8_t tempo[4] = {0, 0, 1, 0};
     bool oper[3] = {1, 0, 0};
     bool isUpTempo = monMemory.setTempoGeral(tempo);
     bool isUpCook = monMemory.setCookGeral(pp);
@@ -38,8 +42,14 @@ int main(void)
 
     bool isUpAction = monMemory.setAction(play);
     if (isUpAction)
+    {
+        doIntService = monMemory.getAction();
         monTimerServ.doActionService();
-    while(1){
-        monPrintServ.doService();
+    }
+    while (1)
+    {
+        monEditorServ.doService();
+        monTimerServ.doFimLedService();
+        //monPrintServ.doService();
     }
 }
