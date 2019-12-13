@@ -47,7 +47,8 @@ typedef struct
          inputOper = 0,
          inputAct = 0,
          cancelAct = 0,
-         fimLed = 0;
+         fimLed = 0,
+         increment = 0;
 } sId_doService;
 
 typedef enum
@@ -143,6 +144,15 @@ public:
             thisCancelAction = cancel;
             servToDo.cancelAct = 1;
         }
+    }
+
+    bool setIncrement()
+    {
+        while (servToDo.inputTime == 1 && servToDo.upTimeD == 1)
+        {
+            servToDo.increment = 0;
+        }
+        servToDo.increment = 1;
     }
 
     uint8_t *getTempoGeral() { return tempo_geral; }

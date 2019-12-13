@@ -12,6 +12,25 @@
 #include "../Bibliotecas/GPIO/mkl_GPIOPort.h"
 #include "MKL25Z4.h"
 #include "../Bibliotecas/I2C/mkl_LCD.h"
+
+class Button
+{
+private:
+    mkl_GPIOPort port;
+
+public:
+    Button(gpio_Pin pin) : port(pin)
+    {
+        port.setPortMode(gpio_input);
+        port.setPullResistor(gpio_pullUpResistor);
+    }
+
+    bool readButton()
+    {
+        return port.readBit();
+    }
+};
+
 class Led
 {
 private:
@@ -143,4 +162,5 @@ public:
         return newClock;
     }
 };
+
 #endif /* SOURCES_DEVICES_DEVICES_H_ */

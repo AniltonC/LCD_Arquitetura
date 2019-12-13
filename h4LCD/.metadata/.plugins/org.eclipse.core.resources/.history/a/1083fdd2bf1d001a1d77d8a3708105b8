@@ -1,0 +1,47 @@
+#include "MKL25Z4.h"
+#include "./Bibliotecas/Systick/mkl_SystickPeriodicInterrupt.h"
+#include "./Classes/services.h"
+#include "./Classes/monitor.h"
+#include "./Classes/devices.h"
+
+//MONITOR
+MonitorLCD LCDTimerMonitor = MonitorLCD();
+
+/*
+ * SYSTICK TIMER
+ */
+mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(10, clock42Mhz);
+
+uint8_t tempo[4] = {0, 2, 0, 0};
+
+Button PlayPause = Button(gpio_PTD4);
+enableType state = play;
+extern "C"
+{
+    void SysTick_Handler(void)
+    {
+        LCDTimerMonitor.doServiceFromIRQ();
+
+        if (PlayPause.readButton())
+        {
+            LCDTimerMonitor.monMemory.setAction(state);
+            if (state == pause)
+                state = play;
+            else
+                state = pause;
+        }
+    }
+}
+
+int main(void)
+{
+    bool oper[3] = {1, 0, 1};
+
+    LCDTimerMonitor.monMemory.setTempoGeral(tempo);
+    LCDTimerMonitor.monMemory.setOperGeral(oper);
+    LCDTimerMonitor.monMemory.setCookGeral(ed);
+    while (1)
+    {
+        LCDTimerMonitor.doService();
+    }
+}

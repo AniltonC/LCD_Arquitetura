@@ -13,7 +13,7 @@ MonitorLCD LCDTimerMonitor = MonitorLCD();
 mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(10, clock42Mhz);
 
 uint8_t tempo[4] = {0, 2, 0, 0};
-// BOTOES DE ENTRADA
+
 Button PlayPause = Button(gpio_PTD4);
 Button Cancel = Button(gpio_PTA12);
 Button TempoB = Button(gpio_PTA4);
@@ -21,15 +21,14 @@ Button CookOperB = Button(gpio_PTA5);
 uint8_t trocaT = 0, trocaCO = 0;
 bool oper[3] = {1, 0, 1};
 cookOption cookOpt = ed;
+
 enableType state = play;
-uint8_t debounce = 0;
 extern "C"
 {
     void SysTick_Handler(void)
     {
         LCDTimerMonitor.doServiceFromIRQ();
 
-        // ENTRADAS PARA TESTE:
         if (PlayPause.readButton() == 0)
         {
             LCDTimerMonitor.monMemory.setAction(state);
@@ -78,64 +77,57 @@ extern "C"
 
         if (CookOperB.readButton() == 0)
         {
-            if (debounce)
+            if (trocaCO == 0)
             {
-                if (trocaCO == 0)
-                {
-                    cookOpt = ed;
-                    oper[0] = 0;
-                    oper[1] = 0;
-                    oper[2] = 0;
-                }
-                else if (trocaCO == 1)
-                {
-                    cookOpt = pp;
-                    oper[0] = 0;
-                    oper[1] = 0;
-                    oper[2] = 1;
-                }
-                else if (trocaCO == 2)
-                {
-                    cookOpt = pz;
-                    oper[0] = 0;
-                    oper[1] = 1;
-                    oper[2] = 0;
-                }
-                else if (trocaCO == 3)
-                {
-                    cookOpt = la;
-                    oper[0] = 0;
-                    oper[1] = 1;
-                    oper[2] = 1;
-                }
-                else if (trocaCO == 4)
-                {
-                    cookOpt = i3;
-                    oper[0] = 1;
-                    oper[1] = 0;
-                    oper[2] = 0;
-                }
-                else if (trocaCO == 5)
-                {
-                    cookOpt = i5;
-                    oper[0] = 1;
-                    oper[1] = 0;
-                    oper[2] = 1;
-                }
-
-                LCDTimerMonitor.monMemory.setCookGeral(cookOpt);
-                LCDTimerMonitor.monMemory.setOperGeral(oper);
-                trocaCO++;
-                if (trocaCO == 6)
-                {
-                    trocaCO = 0;
-                }
+                cookOpt = ed;
+                oper[0] = 0;
+                oper[1] = 0;
+                oper[2] = 0;
             }
-            debounce++;
-            if (debounce == 10)
-                debounce = 0;
+            else if (trocaCO == 1)
+            {
+                cookOpt = pp;
+                oper[0] = 0;
+                oper[1] = 0;
+                oper[2] = 1;
+            }
+            else if (trocaCO == 2)
+            {
+                cookOpt = pz;
+                oper[0] = 0;
+                oper[1] = 1;
+                oper[2] = 0;
+            }
+            else if (trocaCO == 3)
+            {
+                cookOpt = la;
+                oper[0] = 0;
+                oper[1] = 1;
+                oper[2] = 1;
+            }
+            else if (trocaCO == 4)
+            {
+                cookOpt = i3;
+                oper[0] = 1;
+                oper[1] = 0;
+                oper[2] = 0;
+            }
+            else if (trocaCO == 5)
+            {
+                cookOpt = i5;
+                oper[0] = 1;
+                oper[1] = 0;
+                oper[2] = 1;
+            }
+
+            LCDTimerMonitor.monMemory.setCookGeral(cookOpt);
+            //LCDTimerMonitor.monMemory.setOperGeral(oper);
+            trocaCO++;
+            if (trocaCO == 6)
+            {
+                trocaCO = 0;
+            }
         }
-        // FIM ENTRADAS PARA TESTE
     }
 }
 
