@@ -219,18 +219,29 @@ public:
 
     void doActionService()
     {
-        thisTimer->enableTimer(thisMemoriaGeral->getAction());
         if (thisMemoriaGeral->getCancelAction())
         {
             thisTimer->cancelTimer();
+            clock.reset();
             thisMemoriaGeral->setCancelAction(0);
+        }
+        else
+        {
+            thisTimer->enableTimer(thisMemoriaGeral->getAction());
+            if (thisMemoriaGeral->getAction() == play)
+                clock.enable(1);
+            else
+                clock.enable(0);
         }
     }
 
     void doFimLedService()
     {
         if (thisMemoriaGeral->getFimLedAction())
+        {
             fimLed.turnOn();
+            clock.reset();
+        }
         else
             fimLed.turnOff();
     }

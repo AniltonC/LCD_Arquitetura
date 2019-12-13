@@ -45,6 +45,14 @@ public:
                     getOut = 1;
                     atualState = nextState;
                 }
+                nextState = timeServ;
+
+            case timeServ:
+                if (monMemory.servToDo.tempoGeral)
+                {
+                    getOut = 1;
+                    atualState = nextState;
+                }
                 nextState = fLedServ;
 
             case fLedServ:
@@ -61,6 +69,36 @@ public:
                 nextState = editServ;
             }
         }
+    }
+
+    void doService()
+    {
+        switch (atualState)
+        {
+        case editServ:
+            monEditorServ.doService();
+            return;
+
+        case timeServ:
+            monEditorServ.doSetTimeServ();
+            return;
+
+        case actiServ:
+            monTimerServ.doActionService();
+            return;
+
+        case fLedServ:
+            monTimerServ.doFimLedService();
+
+        case prntServ:
+            monPrintServ.doService();
+            return;
+        }
+    }
+
+    void doServiceFromIRQ()
+    {
+        monTimerServ.doService();
     }
 };
 
