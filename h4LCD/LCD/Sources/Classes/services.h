@@ -43,6 +43,7 @@ typedef struct
     bool tempoGeral = 0,
          cookGeral = 0,
          operGeral = 0,
+         editGeral = 0,
          actionGeral = 0,
          cancelAct = 0,
          fimLed = 0;
@@ -69,6 +70,8 @@ private:
     bool thisCancelAction;
     bool thisFimTimer, doFimLedAct;
 
+    void upDateEdit() { servToDo.editGeral = servToDo.cookGeral || servToDo.operGeral; }
+
 public:
     sId_doService servToDo;
 
@@ -91,6 +94,7 @@ public:
                 servToDo.tempoGeral = 1;
             }
         }
+        upDateEdit();
     }
     void TimerUpdate(uint8_t timer_up[4])
     {
@@ -116,6 +120,7 @@ public:
             thisCookGeral = cookIn;
             servToDo.cookGeral = 1;
         }
+        upDateEdit();
     }
 
     void setOperGeral(bool operIn[3])
@@ -129,6 +134,7 @@ public:
                 servToDo.operGeral = 0;
             }
         }
+        upDateEdit();
     }
 
     void setAction(enableType action)
@@ -182,9 +188,12 @@ public:
         thisCookDecod = cookIn;
         thisOperDecod = operIn;
     }
-    void doService()
+    void doSetTimeServ()
     {
         thisTimer->setTime(thisMemoriaGeral->getTempoGeral());
+    }
+    void doService()
+    {
         thisCookDecod->setInput(thisMemoriaGeral->getCookGeral());
         thisOperDecod->setInput(thisMemoriaGeral->getOperGeral());
         thisTimeDecod->setInput(thisTimer->getTime());
@@ -198,6 +207,7 @@ private:
     Timer *thisTimer;
     TimeDecoder *thisTimeDecod;
     Led fimLed = Led(gpio_PTB18);
+    FreqDivisor clock = FreqDivisor(1);
 
 public:
     TimerService(Memoria *memIn, Timer *timerIn, TimeDecoder *timeDIn)
@@ -227,9 +237,16 @@ public:
 
     void doService()
     {
-        thisTimer->decrement();
-        thisMemoriaGeral->setIsFimTimer(thisTimer->endTimer());
-        thisMemoriaGeral->TimerUpdate(thisTimer->getTime());
+        clock.increment();
+        if (thisMemoriaGeral->getAction() == play)
+        {
+            thisMemoriaGeral->TimerUpdate(thisTimer->getTime());
+            if (clock.getClock())
+            {
+                thisTimer->decrement();
+                thisMemoriaGeral->setIsFimTimer(thisTimer->endTimer());
+            }
+        }
     }
 };
 

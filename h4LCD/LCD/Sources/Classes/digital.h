@@ -162,7 +162,7 @@ private:
     uint8_t time[4];
     bool enableDecrement;
     uint8_t vaiUm[3] = {0, 0, 0};
-    bool fimTemp;
+    bool fimTemp, contou;
 
 public:
     Timer()
@@ -230,33 +230,45 @@ public:
 
     void decrement()
     {
+        contou = 0;
         if (enableDecrement)
         {
             fimTemp = 0;
-            if (time[0] == 0 && time[1] == 0 && time[2] == 0 && time[3] == 0)
+            contou = 1;
+            time[3] -= 1;
+            if (time[3] == 255)
             {
-                enableDecrement = 0;
-                fimTemp = 1;
-            }
-            else
-            {
-                time[3] -= 1;
-                if (time[3] == 255)
+                time[2] -= 1;
+                time[3] = 9;
+                if (time[2] == 255)
                 {
-                    time[2] -= 1;
-                    time[3] = 9;
-                    if (time[2] == 255)
+                    time[1] -= 1;
+                    time[2] = 5;
+                    if (time[1] == 255)
                     {
-                        time[1] -= 1;
-                        time[2] = 5;
-                        if (time[1] == 255)
+                        time[0] -= 1;
+                        time[1] = 9;
+                        if (time[0] == 255)
                         {
-                            time[0] -= 1;
-                            time[1] = 9;
-                            if (time[0] == 255)
-                            {
-                                time[0] = 5;
-                            }
+                            time[0] = 5;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (contou)
+        {
+            if (time[0] == 0)
+            {
+                if (time[1] == 0)
+                {
+                    if (time[2] == 0)
+                    {
+                        if (time[3] == 0)
+                        {
+                            enableDecrement = 0;
+                            fimTemp = 1;
                         }
                     }
                 }

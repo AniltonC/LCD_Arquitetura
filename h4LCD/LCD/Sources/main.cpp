@@ -11,22 +11,22 @@ EditorService monEditorServ = EditorService(&monMemory, monDigiFact.getPtrTimer(
 
 TimerService monTimerServ = TimerService(&monMemory, monDigiFact.getPtrTimer(), monDigiFact.getPtrTimeDecod());
 
-//PrintService monPrintServ = PrintService(&monMemory, monDigiFact.getPtrTimeDecod(), monDigiFact.getPtrCookDecod(), monDigiFact.getPtrOperDecod());
+PrintService monPrintServ = PrintService(&monMemory, monDigiFact.getPtrTimeDecod(), monDigiFact.getPtrCookDecod(), monDigiFact.getPtrOperDecod());
 
 /*
  * SYSTICK TIMER
  */
 mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(10, clock42Mhz);
-FreqDivisor clock1Hz = FreqDivisor(1);
+//FreqDivisor clock1Hz = FreqDivisor(1);
 enableType doIntService = pause;
 extern "C"
 {
     void SysTick_Handler(void)
     {
-        clock1Hz.increment();
-        if (doIntService == play)
-            if (clock1Hz.getClock())
-                monTimerServ.doService();
+        //clock1Hz.increment();
+        //if (clock1Hz.getClock())
+        monTimerServ.doService();
+        monTimerServ.doFimLedService();
     }
 }
 
@@ -34,22 +34,26 @@ int main(void)
 {
     uint8_t tempo[4] = {0, 0, 1, 0};
     bool oper[3] = {1, 0, 0};
-    bool isUpTempo = monMemory.setTempoGeral(tempo);
-    bool isUpCook = monMemory.setCookGeral(pp);
-    bool isUpOper = monMemory.setOperGeral(oper);
-    if (isUpTempo || isUpCook || isUpOper)
+    monMemory.setTempoGeral(tempo);
+    monMemory.setCookGeral(pp);
+    monMemory.setOperGeral(oper);
+
+    if (monMemory.servToDo.tempoGeral)
+        monEditorServ.doSetTimeServ();
+
+    if (monMemory.servToDo.editGeral)
         monEditorServ.doService();
 
-    bool isUpAction = monMemory.setAction(play);
-    if (isUpAction)
+    monMemory.setAction(play);
+    if (monMemory.servToDo.actionGeral)
     {
         doIntService = monMemory.getAction();
         monTimerServ.doActionService();
     }
     while (1)
     {
-        monEditorServ.doService();
-        monTimerServ.doFimLedService();
-        //monPrintServ.doService();
+        if (monMemory.servToDo.editGeral)
+            monEditorServ.doService();
+        monPrintServ.doService();
     }
 }
