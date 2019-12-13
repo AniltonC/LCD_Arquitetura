@@ -242,12 +242,12 @@ public:
         clock.increment();
         if (thisMemoriaGeral->getAction() == play)
         {
-            thisMemoriaGeral->TimerUpdate(thisTimer->getTime());
             if (clock.getClock())
             {
                 thisTimer->decrement();
                 thisMemoriaGeral->setIsFimTimer(thisTimer->endTimer());
             }
+            thisMemoriaGeral->TimerUpdate(thisTimer->getTime());
         }
     }
 };

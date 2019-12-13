@@ -21,7 +21,7 @@ extern "C"
 
 int main(void)
 {
-    uint8_t tempo[4] = {0, 0, 1, 0};
+    uint8_t tempo[4] = {0, 2, 0, 0};
     bool oper[3] = {1, 0, 1};
 
     LCDTimerMonitor.monMemory.setTempoGeral(tempo);

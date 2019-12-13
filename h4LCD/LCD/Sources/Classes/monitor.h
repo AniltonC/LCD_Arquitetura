@@ -113,7 +113,6 @@ public:
             monTimerServ.doActionService();
             monMemory.servToDo.cancelAct = 0;
         }
-
         
         monPrintServ.doService();
     }
