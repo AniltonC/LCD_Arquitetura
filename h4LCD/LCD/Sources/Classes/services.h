@@ -40,11 +40,12 @@ public:
 
 typedef struct
 {
-    bool tempoGeral = 0,
-         cookGeral = 0,
-         operGeral = 0,
-         editGeral = 0,
-         actionGeral = 0,
+    bool inputTime = 0,
+         upTimeR = 0,
+         upTimeD = 0,
+         inputCook = 0,
+         inputOper = 0,
+         inputAct = 0,
          cancelAct = 0,
          fimLed = 0;
 } sId_doService;
@@ -64,47 +65,39 @@ class Memoria
 {
 private:
     uint8_t tempo_geral[4] = {0, 0, 0, 0};
-    cookOption thisCookGeral;
+    cookOption thisCookGeral = ed;
     bool operGeral[3] = {0, 0, 0};
-    enableType thisAction;
-    bool thisCancelAction;
-    bool thisFimTimer, doFimLedAct;
-
-    void upDateEdit() { servToDo.editGeral = servToDo.cookGeral || servToDo.operGeral; }
+    enableType thisAction = pause;
+    bool thisCancelAction = 0;
+    bool thisFimTimer = 0, doFimLedAct = 0;
 
 public:
     sId_doService servToDo;
 
     Memoria()
     {
-        thisCookGeral = ed;
-        thisAction = pause;
-        thisCancelAction = 0;
-        thisFimTimer = 0;
     }
 
     void setTempoGeral(uint8_t tempo[4])
     {
-        servToDo.tempoGeral = 0;
         for (uint8_t i = 0; i < 4; i++)
         {
             if (tempo_geral[i] != tempo[i])
             {
                 tempo_geral[i] = tempo[i];
-                servToDo.tempoGeral = 1;
+                servToDo.inputTime = 1;
             }
         }
-        upDateEdit();
     }
     void TimerUpdate(uint8_t timer_up[4])
     {
         for (uint8_t i = 0; i < 4; i++)
             tempo_geral[i] = timer_up[i];
+        servToDo.upTimeR = 1;
     }
 
     void setIsFimTimer(bool fim)
     {
-        servToDo.fimLed = 0;
         if (thisFimTimer != fim)
         {
             thisFimTimer = fim;
@@ -114,36 +107,31 @@ public:
 
     void setCookGeral(cookOption cookIn)
     {
-        servToDo.cookGeral = 0;
         if (cookIn != thisCookGeral)
         {
             thisCookGeral = cookIn;
-            servToDo.cookGeral = 1;
+            servToDo.inputCook = 1;
         }
-        upDateEdit();
     }
 
     void setOperGeral(bool operIn[3])
     {
-        servToDo.operGeral = 0;
         for (uint8_t i = 0; i < 3; i++)
         {
             if (operIn[i] != operGeral[i])
             {
                 operGeral[i] = operIn[i];
-                servToDo.operGeral = 0;
+                servToDo.inputOper = 1;
             }
         }
-        upDateEdit();
     }
 
     void setAction(enableType action)
     {
-        servToDo.actionGeral = 0;
         if (thisAction != action)
         {
             thisAction = action;
-            servToDo.actionGeral = 1;
+            servToDo.inputAct = 1;
         }
     }
 
@@ -192,11 +180,14 @@ public:
     {
         thisTimer->setTime(thisMemoriaGeral->getTempoGeral());
     }
-    void doService()
+    void doService(uint8_t in)
     {
-        thisCookDecod->setInput(thisMemoriaGeral->getCookGeral());
-        thisOperDecod->setInput(thisMemoriaGeral->getOperGeral());
-        thisTimeDecod->setInput(thisTimer->getTime());
+        if (in == 0)
+            thisTimeDecod->setInput(thisTimer->getTime());
+        else if (in == 1)
+            thisCookDecod->setInput(thisMemoriaGeral->getCookGeral());
+        else
+            thisOperDecod->setInput(thisMemoriaGeral->getOperGeral());
     }
 };
 

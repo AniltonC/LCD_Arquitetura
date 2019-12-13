@@ -26,79 +26,106 @@ public:
     }
     void selectService()
     {
-        bool getOut = 0;
-        while (!getOut)
+        /*
+        switch (nextState)
         {
-            switch (nextState)
+        case timeServ:
+            if (monMemory.servToDo.tempoGeral)
             {
-            case editServ:
-                if (monMemory.servToDo.editGeral)
-                {
-                    getOut = 1;
-                    atualState = nextState;
-                }
-                nextState = actiServ;
-
-            case actiServ:
-                if (monMemory.servToDo.actionGeral)
-                {
-                    getOut = 1;
-                    atualState = nextState;
-                }
-                nextState = timeServ;
-
-            case timeServ:
-                if (monMemory.servToDo.tempoGeral)
-                {
-                    getOut = 1;
-                    atualState = nextState;
-                }
-                nextState = fLedServ;
-
-            case fLedServ:
-                if (monMemory.servToDo.fimLed)
-                {
-                    getOut = 1;
-                    atualState = nextState;
-                }
-                nextState = prntServ;
-
-            case prntServ:
-                getOut = 1;
+                monMemory.servToDo.tempoGeral = 0;
                 atualState = nextState;
-                nextState = editServ;
             }
+            nextState = editServ;
+            return;
+
+        case editServ:
+            if (monMemory.servToDo.edit)
+            {
+                monMemory.servToDo.edit = 0;
+                atualState = nextState;
+            }
+            nextState = actiServ;
+            return;
+
+        case actiServ:
+            if (monMemory.servToDo.actionGeral)
+            {
+                monMemory.servToDo.actionGeral = 0;
+                atualState = nextState;
+            }
+            nextState = fLedServ;
+            return;
+
+        case fLedServ:
+            if (monMemory.servToDo.fimLed)
+            {
+                monMemory.servToDo.fimLed = 0;
+
+                atualState = nextState;
+            }
+            nextState = prntServ;
+            return;
+
+        case prntServ:
+            atualState = nextState;
+            nextState = editServ;
+            return;
         }
+        */
     }
 
     void doService()
     {
-        switch (atualState)
+        if (monMemory.servToDo.inputTime || monMemory.servToDo.upTimeR)
         {
-        case editServ:
-            monEditorServ.doService();
-            return;
-
-        case timeServ:
             monEditorServ.doSetTimeServ();
-            return;
-
-        case actiServ:
-            monTimerServ.doActionService();
-            return;
-
-        case fLedServ:
-            monTimerServ.doFimLedService();
-
-        case prntServ:
-            monPrintServ.doService();
-            return;
+            monMemory.servToDo.inputTime = 0;
+            monMemory.servToDo.upTimeR = 0;
+            monMemory.servToDo.upTimeD = 1;
         }
+
+        if (monMemory.servToDo.upTimeD)
+        {
+            monEditorServ.doService(0);
+            monMemory.servToDo.upTimeD = 0;
+        }
+
+        if (monMemory.servToDo.inputCook)
+        {
+            monEditorServ.doService(1);
+            monMemory.servToDo.inputCook = 0;
+        }
+
+        if (monMemory.servToDo.inputOper)
+        {
+            monEditorServ.doService(2);
+            monMemory.servToDo.inputOper = 0;
+        }
+
+        if (monMemory.servToDo.inputAct)
+        {
+            monTimerServ.doActionService();
+            monMemory.servToDo.inputAct = 0;
+        }
+
+        if (monMemory.servToDo.cancelAct)
+        {
+            monTimerServ.doActionService();
+            monMemory.servToDo.cancelAct = 0;
+        }
+
+        
+        monPrintServ.doService();
     }
 
     void doServiceFromIRQ()
     {
         monTimerServ.doService();
+        if (monMemory.servToDo.fimLed)
+        {
+            monTimerServ.doFimLedService();
+            monMemory.servToDo.fimLed = 0;
+        }
     }
 };
 
