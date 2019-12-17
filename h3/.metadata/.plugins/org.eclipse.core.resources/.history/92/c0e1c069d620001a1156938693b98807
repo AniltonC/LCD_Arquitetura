@@ -1,0 +1,27 @@
+#ifndef DISPOSITIVOS_LED_H_
+#define DISPOSITIVOS_LED_H_
+#include "../Bibliotecas/GPIO/mkl_GPIOPort.h"
+
+class led {
+	public:
+		explicit led(gpio_Pin pino);
+		void on();
+		void off();
+	private:
+		mkl_GPIOPort pisca;
+};
+
+led(gpio_Pin pino) {
+	pisca=mkl_GPIOPort(pino);
+	pisca.setPortMode(gpio_output);
+	pisca.writeBit(0);
+}
+
+void led::on(){
+	pisca.writeBit(1);
+}
+void led::off(){
+	pisca.writeBit(0);
+}
+
+#endif

@@ -1,0 +1,105 @@
+#include <stdint.h>
+#include <MKL25Z4.h>
+#include "teclado/mkl_KeyboardParallelPort.h"
+#include "bibliotecas/mkl_SystickPeriodicInterrupt.h"
+#include "dispositivos/led.h"
+#include "dispositivos/switch.h"
+#include "dispositivos/displaySegments.h"
+#include "servicos/EditService.h"
+#include "dispositivos/decoder.h"
+#include "servicos/IncrementService.h"
+//#include <assert.h>
+#include "../Includes/mkl_HC06BluetoothSlave.h"
+
+//Declaração do bluetooh
+mkl_HC06BluetoothSlave bt(uart0_PTD7, uart0_PTD6);
+char buf = '0';
+
+
+//Declaração do teclado
+
+mkl_KeyboardParallelPort keyboard(gpio_PTA13, gpio_PTD5, gpio_PTD0, gpio_PTD2,
+gpio_PTC12, gpio_PTC13, gpio_PTC16, gpio_PTC17);
+
+
+
+//Declaração do 7 segmentos
+displaySegments display (gpio_PTC7,gpio_PTC0,gpio_PTC3,gpio_PTC4,gpio_PTC5,
+		gpio_PTC6,gpio_PTC10,gpio_PTC1, gpio_PTE29, gpio_PTE23, gpio_PTE22);
+
+mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(10, clock42Mhz);
+//
+registrador Us(0);
+registrador Ds(0);
+registrador Um(0);
+registrador Dm(0);
+//
+switche botao3(gpio_PTB9),botao7(gpio_PTB11);
+
+switche permission(gpio_PTE5);
+
+controlador service_edit;
+
+IncrementService service_inc;
+
+char key;
+int valor=0;
+
+extern "C" {
+
+   void UART0_IRQHandler(void) {
+   		buf = bt.receive8Bits();
+   }
+   void SysTick_Handler(void) {
+     	keyboard.update();
+         key = keyboard.getKey();
+         if(keyboard.keyIsPressed()){
+         	valor=key;
+         }
+
+     }
+}
+
+
+void setupBluetooth() {
+	bt.setInterruptMode(uart_Rx);
+	bt.setPriority(uart_Priority0);
+	bt.enableInterrupt();
+}
+
+
+int main(){
+	__disable_irq();
+	setupBluetooth();  //! Configura o periférico bluetooth
+	__enable_irq();
+	while(1){
+		service_edit.maq_est(keyboard.keyIsPressed(),!permission.read());
+		service_edit.select_service();
+		service_edit.do_service(&Dm,&Um,&Ds,&Us,valor);
+
+
+
+    	service_inc.machineState(botao3.isOn(),botao7.isOn(),!permission.read());
+    	service_inc.selectService();
+    	service_inc.doService(&Dm,&Um,&Ds,&Us);
+//
+//
+
+		if(buf == '1'){
+			Dm.atualiza(0);
+			Um.atualiza(2);
+			Ds.atualiza(0);
+			Us.atualiza(2);
+		}
+		else if(buf == '2'){
+			Dm.atualiza(0);
+			Um.atualiza(0);
+			Ds.atualiza(3);
+			Us.atualiza(0);
+		}
+		display.monitora(Dm.leValor(),Um.leValor(),Ds.leValor(),Us.leValor());
+
+	}
+	return 0;
+}
+

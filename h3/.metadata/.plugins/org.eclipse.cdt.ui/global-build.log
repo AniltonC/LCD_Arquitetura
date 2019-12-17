@@ -1,0 +1,50 @@
+10:12:55 **** Clean-only build of configuration Debug for project teclado ****
+make clean 
+rm -rf  ./Sources/teclado/mkl_KeyboardParallelPort.o  ./Sources/servicos/Cozimento.o ./Sources/servicos/EditService.o ./Sources/servicos/IncrementService.o  ./Sources/dispositivos/decoder.o ./Sources/dispositivos/displaySegments.o ./Sources/dispositivos/led.o ./Sources/dispositivos/switche.o  ./Sources/digitais/digitalFactory.o ./Sources/digitais/registrador.o  ./Sources/main.o  ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  ./Includes/mkl_HC06BluetoothSlave.o ./Includes/mkl_UARTInterrupt.o ./Includes/mkl_UARTPort.o  ./Project_Settings/Startup_Code/system_MKL25Z4.d  ./Sources/teclado/mkl_KeyboardParallelPort.d  ./Sources/servicos/Cozimento.d ./Sources/servicos/EditService.d ./Sources/servicos/IncrementService.d  ./Sources/dispositivos/decoder.d ./Sources/dispositivos/displaySegments.d ./Sources/dispositivos/led.d ./Sources/dispositivos/switche.d  ./Sources/digitais/digitalFactory.d ./Sources/digitais/registrador.d  ./Sources/main.d  ./Includes/mkl_HC06BluetoothSlave.d ./Includes/mkl_UARTInterrupt.d ./Includes/mkl_UARTPort.d  ./Project_Settings/Startup_Code/startup_MKL25Z4.d  teclado.elf
+ 
+10:12:56 **** Incremental Build of configuration Debug for project teclado ****
+make all 
+Building file: ../Sources/teclado/mkl_KeyboardParallelPort.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/teclado/mkl_KeyboardParallelPort.d" -MT"Sources/teclado/mkl_KeyboardParallelPort.o" -c -o "Sources/teclado/mkl_KeyboardParallelPort.o" "../Sources/teclado/mkl_KeyboardParallelPort.cpp"
+Finished building: ../Sources/teclado/mkl_KeyboardParallelPort.cpp
+ 
+Building file: ../Sources/servicos/Cozimento.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/servicos/Cozimento.d" -MT"Sources/servicos/Cozimento.o" -c -o "Sources/servicos/Cozimento.o" "../Sources/servicos/Cozimento.cpp"
+Finished building: ../Sources/servicos/Cozimento.cpp
+ 
+Building file: ../Sources/servicos/EditService.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/servicos/EditService.d" -MT"Sources/servicos/EditService.o" -c -o "Sources/servicos/EditService.o" "../Sources/servicos/EditService.cpp"
+Finished building: ../Sources/servicos/EditService.cpp
+ 
+Building file: ../Sources/servicos/IncrementService.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/servicos/IncrementService.d" -MT"Sources/servicos/IncrementService.o" -c -o "Sources/servicos/IncrementService.o" "../Sources/servicos/IncrementService.cpp"
+Finished building: ../Sources/servicos/IncrementService.cpp
+ 
+Building file: ../Sources/dispositivos/decoder.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/dispositivos/decoder.d" -MT"Sources/dispositivos/decoder.o" -c -o "Sources/dispositivos/decoder.o" "../Sources/dispositivos/decoder.cpp"
+Finished building: ../Sources/dispositivos/decoder.cpp
+ 
+Building file: ../Sources/dispositivos/displaySegments.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/dispositivos/displaySegments.d" -MT"Sources/dispositivos/displaySegments.o" -c -o "Sources/dispositivos/displaySegments.o" "../Sources/dispositivos/displaySegments.cpp"
+Finished building: ../Sources/dispositivos/displaySegments.cpp
+ 
+Building file: ../Sources/dispositivos/led.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/dispositivos/led.d" -MT"Sources/dispositivos/led.o" -c -o "Sources/dispositivos/led.o" "../Sources/dispositivos/led.cpp"
+Finished building: ../Sources/dispositivos/led.cpp
+ 
+Building file: ../Sources/dispositivos/switche.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/dispositivos/switche.d" -MT"Sources/dispositivos/switche.o" -c -o "Sources/dispositivos/switche.o" "../Sources/dispositivos/switche.cpp"
+../Sources/dispositivos/switche.cpp:3:20: fatal error: switch.h: No such file or directory
+ #include "switch.h"
+                    ^
+compilation terminated.
+Sources/dispositivos/subdir.mk:27: recipe for target 'Sources/dispositivos/switche.o' failed
+make: *** [Sources/dispositivos/switche.o] Error 1

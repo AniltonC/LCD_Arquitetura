@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;teclado/Sources/dispositivos/switch.h&apos; to &apos;switche.h&apos;" description="Rename resource &apos;switch.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Sources/dispositivos/switch.h" name="switche.h" stamp="1576591943145" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;teclado/Sources/dispositivos/switch.cpp&apos; to &apos;switche.cpp&apos;" description="Rename resource &apos;switch.cpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Sources/dispositivos/switch.cpp" name="switche.cpp" stamp="1576591949126" updateReferences="true"/>
+</session>

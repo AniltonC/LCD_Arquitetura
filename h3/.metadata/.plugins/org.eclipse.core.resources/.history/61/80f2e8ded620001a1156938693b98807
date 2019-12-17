@@ -1,0 +1,14 @@
+#include "led.h"
+
+H2_led::H2_led(gpio_Pin pino) {
+	pisca=mkl_GPIOPort(pino);
+	pisca.setPortMode(gpio_output);
+	pisca.writeBit(0);
+}
+
+void H2_led::on(){
+	pisca.writeBit(1);
+}
+void H2_led::off(){
+	pisca.writeBit(0);
+}
