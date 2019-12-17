@@ -1,0 +1,89 @@
+#include "Cozimento.h"
+
+Cozimento::CozimentoService(){
+	stateService = H3_wait_for_full;
+	servico=0;
+	operacao=0;
+}
+
+
+void CozimentoService::doService (registrador *reg4,registrador *reg3,registrador *reg2,registrador *reg1){
+	if(servico==0){
+		endService=false;
+		permission=false;
+	}
+	else if(servico ==1){
+		endService=false;
+		permission=true;
+	}
+	else if(servico ==2){
+		endService=false;
+		permission=false;
+
+	}
+	else{
+		endService=true;
+		permission=false;
+	}
+}
+
+void CozimentoService::selectService(){
+	if(stateService==wait_for_full2){
+		servico=0;
+	}
+	else if(stateService==ask_permission || stateService==wait_permission2){
+		servico=1;
+	}
+	else if(stateService==load_value){
+		servico=2;
+	}
+	else{
+		servico=3;
+	}
+}
+
+void CozimentoService::void machineState(char chave, bool permission){
+	switch(stateService){
+		case H3_wait_for_full:
+			if(chave!='0'){
+				if(chave=='1'){
+					operacao=1;
+				}
+				else if(chave=='2'){
+					operacao=2;
+				}
+				else if(chave=='3'){
+					operacao=3;
+				}
+				else if(chave=='4'){
+					operacao=4;
+				}
+				else if(chave=='5'){
+					operacao=5;
+				}
+				stateService=H3_ask_permission;
+			}
+			else{
+				stateService=H3_wait_for_full;
+			}
+			break;
+		case H3_ask_permission:
+			stateService=H3_wait_permission;
+			break;
+		case H3_wait_permission:
+			if(permission){
+				stateService=H3_load_value;
+			}
+			else{
+				stateService=H3_wait_permission;
+			}
+			break;
+		case H3_load_value:
+			stateService=H3_end_state;
+			break;
+		case H3_end_state:
+			stateService=H3_wait_for_full;
+			break;
+	}
+}
+

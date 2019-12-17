@@ -1,0 +1,12 @@
+
+#include "../Bibliotecas/GPIO/mkl_GPIOPort.h"
+
+class H2_led{
+	public:
+		explicit H2_led(gpio_Pin pino);
+		void on();
+		void off();
+	private:
+		mkl_GPIOPort pisca;
+};
+

@@ -1,0 +1,13 @@
+#ifndef DISPOSITOVOS_LED_H_
+#define DISPOSITOVOS_LED_H_
+#include "../Bibliotecas/GPIO/mkl_GPIOPort.h"
+
+class led {
+	public:
+		explicit led(gpio_Pin pino);
+		void on();
+		void off();
+	private:
+		mkl_GPIOPort pisca;
+};
+#endif /* SOURCES_CLASSES_DIGITAL2_H_ */
