@@ -4,6 +4,10 @@
 #include "./Classes/monitor.h"
 #include "./Classes/devices.h"
 
+
+// PRONTO PARA A INTEGRACAO
+
+
 //MONITOR
 MonitorLCD LCDTimerMonitor = MonitorLCD();
 
