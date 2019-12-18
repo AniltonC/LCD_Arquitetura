@@ -62,6 +62,7 @@ extern "C"{
 		else{
 			pos=0;
 			buf[pos] = bt.receive8Bits();
+			pos++;
 		}
 	}
 	void SysTick_Handler(void){

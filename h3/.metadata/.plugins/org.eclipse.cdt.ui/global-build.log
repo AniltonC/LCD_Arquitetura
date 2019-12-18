@@ -1,4 +1,4 @@
-23:34:24 **** Incremental Build of configuration Debug for project teclado ****
+23:40:34 **** Incremental Build of configuration Debug for project teclado ****
 make all 
 Building file: ../Sources/main.cpp
 Invoking: Cross ARM C++ Compiler
@@ -10,6 +10,6 @@ Invoking: Cross ARM C++ Linker
 arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/samuel/Documents/arquitetura/projetos/lcd_arquitetura/h3/teclado/Project_Settings/Linker_Files" -Wl,-Map,"teclado.map" -specs=nano.specs -specs=nosys.specs -o "teclado.elf"  ./Sources/Teclado/mkl_KeyboardParallelPort.o  ./Sources/Motor/mkl_TPM.o ./Sources/Motor/mkl_TPMPulseWidthModulation.o  ./Sources/Dispositivos/decoder.o ./Sources/Dispositivos/displaySegments.o ./Sources/Dispositivos/led.o  ./Sources/Digitais/digitalFactory.o ./Sources/Digitais/registrador.o  ./Sources/Bibliotecas/Systick/mkl_Systick.o ./Sources/Bibliotecas/Systick/mkl_SystickPeriodicInterrupt.o  ./Sources/Bibliotecas/I2C/mkl_I2C.o ./Sources/Bibliotecas/I2C/mkl_I2CPort.o ./Sources/Bibliotecas/I2C/mkl_LCD.o  ./Sources/Bibliotecas/GPIO/mkl_GPIO.o ./Sources/Bibliotecas/GPIO/mkl_GPIOInterrupt.o ./Sources/Bibliotecas/GPIO/mkl_GPIOPort.o  ./Sources/Bibliotecas/Delay/dsf_Delay_ocp.o ./Sources/Bibliotecas/Delay/dsf_TPM_ocp.o  ./Sources/main.o  ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  ./Includes/mkl_HC06BluetoothSlave.o ./Includes/mkl_UARTInterrupt.o ./Includes/mkl_UARTPort.o   
 Finished building target: teclado.elf
  
-23:34:30 **** Incremental Build of configuration Debug for project teclado ****
+23:40:39 **** Incremental Build of configuration Debug for project teclado ****
 make all 
 make: Nothing to be done for 'all'.
