@@ -147,16 +147,18 @@ public:
     {
         if (play_signal)
         {
-            LCD->monMemory.setAction(play);
-            turnOn();
-            if (door_signal)
+            if (!LCD->monMemory.isNothingOnTimer())
             {
-                temp.off();
+                LCD->monMemory.setAction(play);
+                turnOn();
+                if (door_signal)
+                    temp.off();
+
+                else
+                    temp.on();
             }
             else
-            {
-                temp.on();
-            }
+                play_signal = false;
         }
         else
         {

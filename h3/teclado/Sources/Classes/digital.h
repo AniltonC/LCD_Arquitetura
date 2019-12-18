@@ -162,17 +162,6 @@ public:
             time[i] = 0;
     }
 
-    bool isNothingOnTimer()
-    {
-        bool saida = 0;
-        for (uint8_t i = 0; i < 4; i++)
-        {
-            if (time[i] != 0)
-                saida = 1;
-        }
-        return saida;
-    }
-
     void enableTimer(enableType en)
     {
         if (en == play)

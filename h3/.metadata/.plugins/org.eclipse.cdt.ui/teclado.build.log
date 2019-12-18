@@ -1,6 +1,6 @@
-17:12:21 **** Incremental Build of configuration Debug for project teclado ****
+17:32:47 **** Incremental Build of configuration Debug for project teclado ****
 make all 
 make: Nothing to be done for `all'.
 
-17:12:22 Build Finished (took 379ms)
+17:32:47 Build Finished (took 429ms)
 

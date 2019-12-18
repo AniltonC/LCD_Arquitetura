@@ -90,6 +90,18 @@ public:
             }
         }
     }
+
+    bool isNothingOnTimer()
+    {
+        bool saida = 1;
+        for (uint8_t i = 0; i < 4; i++)
+        {
+            if (tempo_geral[i] != 0)
+                saida = 0;
+        }
+        return saida;
+    }
+
     void TimerUpdate(uint8_t timer_up[4])
     {
         for (uint8_t i = 0; i < 4; i++)
@@ -146,13 +158,13 @@ public:
         }
     }
 
-//    void setIncrement(uint8_t incTime)
-//    {
-//        for (uint8_t i = 0; i < 4; i++)
-//        {
-//            tempo_geral[i] = incTime[i];
-//        }
-//    }
+    //    void setIncrement(uint8_t incTime)
+    //    {
+    //        for (uint8_t i = 0; i < 4; i++)
+    //        {
+    //            tempo_geral[i] = incTime[i];
+    //        }
+    //    }
 
     uint8_t *getTempoGeral() { return tempo_geral; }
 
