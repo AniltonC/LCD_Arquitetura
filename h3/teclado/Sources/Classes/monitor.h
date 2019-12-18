@@ -24,55 +24,6 @@ public:
     MonitorLCD() : monEditorServ(&monMemory, monDigiFact.getPtrTimer(), monDigiFact.getPtrTimeDecod(), monDigiFact.getPtrCookDecod(), monDigiFact.getPtrOperDecod()), monTimerServ(&monMemory, monDigiFact.getPtrTimer(), monDigiFact.getPtrTimeDecod()), monPrintServ(&monMemory, monDigiFact.getPtrTimeDecod(), monDigiFact.getPtrCookDecod(), monDigiFact.getPtrOperDecod())
     {
     }
-    void selectService()
-    {
-        /*
-        switch (nextState)
-        {
-        case timeServ:
-            if (monMemory.servToDo.tempoGeral)
-            {
-                monMemory.servToDo.tempoGeral = 0;
-                atualState = nextState;
-            }
-            nextState = editServ;
-            return;
-
-        case editServ:
-            if (monMemory.servToDo.edit)
-            {
-                monMemory.servToDo.edit = 0;
-                atualState = nextState;
-            }
-            nextState = actiServ;
-            return;
-
-        case actiServ:
-            if (monMemory.servToDo.actionGeral)
-            {
-                monMemory.servToDo.actionGeral = 0;
-                atualState = nextState;
-            }
-            nextState = fLedServ;
-            return;
-
-        case fLedServ:
-            if (monMemory.servToDo.fimLed)
-            {
-                monMemory.servToDo.fimLed = 0;
-
-                atualState = nextState;
-            }
-            nextState = prntServ;
-            return;
-
-        case prntServ:
-            atualState = nextState;
-            nextState = editServ;
-            return;
-        }
-        */
-    }
 
     void doService()
     {
@@ -104,16 +55,16 @@ public:
 
         if (monMemory.servToDo.inputAct)
         {
-            monTimerServ.doActionService();
+            monTimerServ.doActionService(0);
             monMemory.servToDo.inputAct = 0;
         }
 
         if (monMemory.servToDo.cancelAct)
         {
-            monTimerServ.doActionService();
+            monTimerServ.doActionService(1);
             monMemory.servToDo.cancelAct = 0;
         }
-        
+
         monPrintServ.doService();
     }
 

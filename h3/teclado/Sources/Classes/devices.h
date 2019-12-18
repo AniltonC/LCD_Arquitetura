@@ -119,7 +119,6 @@ public:
 class FreqDivisor
 {
 private:
-    //mkl_SystickPeriodicInterrupt clockMaq;
     uint8_t freqCounter, counterLim;
     bool newClock,
         en;

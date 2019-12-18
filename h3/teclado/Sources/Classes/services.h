@@ -217,13 +217,14 @@ public:
         thisTimeDecod = timeDIn;
     }
 
-    void doActionService()
+    void doActionService(bool select)
     {
-        if (thisMemoriaGeral->getCancelAction())
+        if (select)
         {
             thisTimer->cancelTimer();
             clock.reset();
             thisMemoriaGeral->setCancelAction(0);
+            thisMemoriaGeral->TimerUpdate(thisTimer->getTime());
         }
         else
         {

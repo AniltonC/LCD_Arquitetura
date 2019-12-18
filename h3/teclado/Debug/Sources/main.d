@@ -31,7 +31,9 @@ Sources/main.o: ../Sources/main.cpp ../Includes/MKL25Z4.h \
  ../Sources/Motor/classesDispositivos.h \
  ../Sources/Motor/mkl_TPMPulseWidthModulation.h \
  ../Sources/Motor/mkl_TPM.h ../Sources/Motor/../Dispositivos/switch.h \
- ../Sources/Motor/../Dispositivos/led.h
+ ../Sources/Motor/../Dispositivos/led.h \
+ ../Sources/Motor/../Classes/digital.h \
+ ../Sources/Motor/../Classes/monitor.h
 
 ../Includes/MKL25Z4.h:
 
@@ -118,3 +120,7 @@ Sources/main.o: ../Sources/main.cpp ../Includes/MKL25Z4.h \
 ../Sources/Motor/../Dispositivos/switch.h:
 
 ../Sources/Motor/../Dispositivos/led.h:
+
+../Sources/Motor/../Classes/digital.h:
+
+../Sources/Motor/../Classes/monitor.h:

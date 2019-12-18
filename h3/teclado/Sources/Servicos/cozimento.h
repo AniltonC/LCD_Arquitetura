@@ -27,6 +27,7 @@ private:
     estados_bluetooth stateService;
     int operacao;
     int servico;
+
 public:
     char memoria;
     explicit CozimentoService()
@@ -34,7 +35,7 @@ public:
         stateService = H3_wait_for_full;
         servico = 0;
         operacao = 0;
-        memoria='0';
+        memoria = '0';
     }
 
     void machineState(char chave, bool permission)
@@ -42,28 +43,35 @@ public:
         switch (stateService)
         {
         case H3_wait_for_full:
-        	if(chave!=memoria){
-        		memoria=chave;
-        		stateService = H3_ask_permission;
-        		if (memoria == '1'){
-					operacao = 1;
-				}
-				else if (memoria == '2'){
-					operacao = 2;
-				}
-				else if (memoria == '3'){
-					operacao = 3;
-				}
-				else if (memoria == '4'){
-					operacao = 4;
-				}
-				else if (memoria == '5'){
-					operacao = 5;
-				}
-        	}
-			else{
-				stateService = H3_wait_for_full;
-			}
+            if (chave != memoria)
+            {
+                memoria = chave;
+                stateService = H3_ask_permission;
+                if (memoria == '1')
+                {
+                    operacao = 1;
+                }
+                else if (memoria == '2')
+                {
+                    operacao = 2;
+                }
+                else if (memoria == '3')
+                {
+                    operacao = 3;
+                }
+                else if (memoria == '4')
+                {
+                    operacao = 4;
+                }
+                else if (memoria == '5')
+                {
+                    operacao = 5;
+                }
+            }
+            else
+            {
+                stateService = H3_wait_for_full;
+            }
 
             break;
         case H3_ask_permission:
@@ -108,7 +116,7 @@ public:
         }
     }
 
-    void doService(registrador *reg4, registrador *reg3, registrador *reg2, registrador *reg1,cookOption *tipo)
+    void doService(registrador *reg4, registrador *reg3, registrador *reg2, registrador *reg1, cookOption *tipo)
     {
         if (servico == 0)
         {
@@ -130,7 +138,7 @@ public:
                 reg3->atualiza(0);
                 reg2->atualiza(3);
                 reg1->atualiza(0);
-                *tipo=pz;
+                *tipo = pz;
             }
             else if (operacao == 2)
             {
@@ -138,7 +146,7 @@ public:
                 reg3->atualiza(1);
                 reg2->atualiza(0);
                 reg1->atualiza(1);
-                *tipo=pp;
+                *tipo = pp;
             }
             else if (operacao == 3)
             {
@@ -146,7 +154,7 @@ public:
                 reg3->atualiza(2);
                 reg2->atualiza(0);
                 reg1->atualiza(2);
-                *tipo=la;
+                *tipo = la;
             }
             else if (operacao == 4)
             {
@@ -154,6 +162,7 @@ public:
                 reg3->atualiza(0);
                 reg2->atualiza(0);
                 reg1->atualiza(0);
+                *tipo = ed;
             }
         }
         else

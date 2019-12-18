@@ -1,4 +1,6 @@
 #include "classesDigitais.h"
+#include "../Classes/digital.h"
+#include "../Classes/monitor.h"
 
 class ControllerService
 {
@@ -9,14 +11,12 @@ private:
 public:
     Switch playPauseButton;
     Switch cancelButton;
-    Switch eot;
     ControllerService(
         gpio_Pin pin_button_play_pause,
         gpio_Pin pin_button_cancel,
         tpm_Pin tmp_pin,
         gpio_Pin pin_left,
-        gpio_Pin pin_right,
-        gpio_Pin pin_eot) : playPauseButton(pin_button_play_pause), cancelButton(pin_button_cancel), motor(tmp_pin, pin_left, pin_right), eot(pin_eot)
+        gpio_Pin pin_right) : playPauseButton(pin_button_play_pause), cancelButton(pin_button_cancel), motor(tmp_pin, pin_left, pin_right)
     {
         mode = 1;
     }
@@ -70,12 +70,13 @@ public:
     {
         buzzer.activeBuzzer();
     };
-    void turnLamp(int params){
-    	lamp.off();
-    	if(params==1){
-    		lamp.on();
-    	}
-
+    void turnLamp(int params)
+    {
+        lamp.off();
+        if (params == 1)
+        {
+            lamp.on();
+        }
     };
     int readDoor()
     {
@@ -83,19 +84,20 @@ public:
     }
 };
 
-class SystemKeyService
+class MonitorMotor
 {
 private:
     SignalService signalService;
     ControllerService controllerService;
     led temp;
-    bool play;
-    bool door;
-    int cancel;
-    int eot;
+    bool door_signal;
+    MonitorLCD *LCD;
+    bool operationData[3] = {0, 0, 0};
 
 public:
-    SystemKeyService(
+    bool cancel_signal;
+    bool play_signal;
+    MonitorMotor(
         gpio_Pin pin_button_play_pause,
         gpio_Pin pin_button_cancel,
         tpm_Pin tmp_pin,
@@ -105,15 +107,16 @@ public:
         gpio_Pin pin_sensor,
         gpio_Pin pin_buzzer,
         gpio_Pin pin_temp,
-        gpio_Pin pin_eot)
-        : controllerService(pin_button_play_pause, pin_button_cancel, tmp_pin, pin_left, pin_right, pin_eot),
+        MonitorLCD *param_lcd)
+        : controllerService(pin_button_play_pause, pin_button_cancel, tmp_pin, pin_left, pin_right),
           signalService(pin_lamp, pin_sensor, pin_buzzer),
           temp(pin_temp)
     {
 
-        play = 0;
-        door = 0;
-        cancel = 0;
+        play_signal = 0;
+        door_signal = 0;
+        cancel_signal = 0;
+        LCD = param_lcd;
     };
     void readAllInput()
     {
@@ -124,34 +127,29 @@ public:
             if (controllerService.playPauseButton.isOn())
             {
                 //If play, pause otherwise if pause, play
-                play = !play;
+                play_signal = !play_signal;
             }
-            door = 0;
+            door_signal = 0;
         }
         else
         {
-            door = 1;
+            door_signal = 1;
         }
 
         // button cancel pressed?
         if (controllerService.cancelButton.isOn())
         {
-            cancel = 1;
+            cancel_signal = 1;
         }
-
-        // end of temporization occurs?
-        if (controllerService.eot.isOn())
-        {
-            eot = 1;
-        };
     };
 
     void doService()
     {
-        if (play)
+        if (play_signal)
         {
+            LCD->monMemory.setAction(play);
             turnOn();
-            if (door)
+            if (door_signal)
             {
                 temp.off();
             }
@@ -162,11 +160,12 @@ public:
         }
         else
         {
+            LCD->monMemory.setAction(pause);
             turnOff();
             temp.off();
         }
 
-        if (door)
+        if (door_signal)
         {
             signalService.turnLamp(1);
         }
@@ -175,24 +174,31 @@ public:
             signalService.turnLamp(0);
         }
 
-        if (eot)
+        if (LCD->monMemory.getFimLedAction())
         {
+            LCD->monMemory.setAction(pause);
             signalService.turnLamp(1);
             signalService.activeBuzzer();
             turnOff();
             temp.off();
-            eot = 0;
-            play = false;
+            play_signal = 0;
+            LCD->monMemory.setIsFimTimer(0);
         }
 
-        if (cancel)
+        if (cancel_signal)
         {
+            LCD->monMemory.setCancelAction(cancel_signal);
+            LCD->monMemory.setAction(pause);
             signalService.turnLamp(0);
             temp.off();
             turnOff();
-            cancel = 0;
-            play = false;
+            cancel_signal = 0;
+            play_signal = 0;
         }
+        operationData[0] = {door_signal};
+        operationData[1] = {play_signal};
+        operationData[2] = {play_signal};
+        LCD->monMemory.setOperGeral(operationData);
     };
     void turnOn()
     {
@@ -204,4 +210,9 @@ public:
     {
         controllerService.motorState(0);
     };
+
+    void setActionMotor(bool param)
+    {
+        play_signal = param;
+    }
 };
