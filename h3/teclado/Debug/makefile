@@ -9,6 +9,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include Sources/Teclado/subdir.mk
+-include Sources/Motor/subdir.mk
 -include Sources/Dispositivos/subdir.mk
 -include Sources/Digitais/subdir.mk
 -include Sources/Bibliotecas/Systick/subdir.mk
@@ -59,7 +60,7 @@ all: teclado.elf secondary-outputs
 teclado.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross ARM C++ Linker'
-	arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"/home/anilton/Desktop/GitHub_Repo/LCD_Arquitetura/h3/teclado/Project_Settings/Linker_Files" -Wl,-Map,"teclado.map" -specs=nano.specs -specs=nosys.specs -o "teclado.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/samuel/Documents/arquitetura/projetos/lcd_arquitetura/h3/teclado/Project_Settings/Linker_Files" -Wl,-Map,"teclado.map" -specs=nano.specs -specs=nosys.specs -o "teclado.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -9,7 +9,7 @@
 #define SOURCES_SERVICOS_INCREMENTSERVICE_H_
 
 #include "../Digitais/registrador.h"
-
+#include "../Classes/digital.h"
 typedef enum
 {
     wait_for_full2 = 0,
@@ -141,7 +141,7 @@ public:
         }
     }
 
-    void doService(registrador *reg4, registrador *reg3, registrador *reg2, registrador *reg1)
+    void doService(registrador *reg4, registrador *reg3, registrador *reg2, registrador *reg1,cookOption *tipo)
     {
         if (servico == 0)
         {
@@ -156,6 +156,10 @@ public:
         else if (servico == 2)
         {
             recebeIncremento(reg4, reg3, reg2, reg1);
+            *tipo=i7;
+            if(valueIncrement==3){
+            	*tipo=i3;
+            }
         }
         else
         {

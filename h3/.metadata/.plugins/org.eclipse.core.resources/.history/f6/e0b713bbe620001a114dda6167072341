@@ -1,0 +1,13 @@
+#include "registrador.h"
+
+registrador::registrador(uint8_t valor){
+	valor=0;
+}
+
+void registrador::atualiza (uint8_t valorNovo){
+	valor = valorNovo;
+}
+
+int registrador::leValor(){
+	return valor;
+}

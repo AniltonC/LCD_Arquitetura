@@ -1,0 +1,134 @@
+#include "stdint.h"
+#include "MKL25Z4.h"
+
+#include "./Teclado/mkl_KeyboardParallelPort.h"
+#include "./Bibliotecas/Systick/mkl_SystickPeriodicInterrupt.h"
+#include "./Dispositivos/led.h"
+#include "./Dispositivos/switch.h"
+
+#include "./Dispositivos/decoder.h"
+#include "./Servicos/cozimento.h"
+#include "./Servicos/editService.h"
+#include "./Servicos/incrementService.h"
+
+#include "./Classes/services.h"
+#include "./Classes/monitor.h"
+#include "./Classes/devices.h"
+#include "../Includes/mkl_HC06BluetoothSlave.h"
+
+#include "Motor/classesComunicao.h"
+
+SystemKeyService motor(gpio_PTA1, gpio_PTA2, tpm_PTA12, gpio_PTA4, gpio_PTA5, gpio_PTD4, gpio_PTC8, gpio_PTC9, gpio_PTC4, gpio_PTC5);
+
+MonitorLCD LCDTimerMonitor = MonitorLCD();
+uint8_t tempo[4] = {1, 0, 0, 0};
+
+
+mkl_HC06BluetoothSlave bt(uart0_PTD7, uart0_PTD6);
+char buf = '0';
+char aux = '0';
+
+
+mkl_KeyboardParallelPort keyboard(gpio_PTA13, gpio_PTD5, gpio_PTD0, gpio_PTD2,
+								  gpio_PTC12, gpio_PTC13, gpio_PTC16, gpio_PTC17);
+
+
+mkl_SystickPeriodicInterrupt systick = mkl_SystickPeriodicInterrupt(10, clock42Mhz);
+//
+registrador Us(0);
+registrador Ds(0);
+registrador Um(0);
+registrador Dm(0);
+//
+Switch botao3(gpio_PTC7), botao7(gpio_PTC0);
+
+Switch permission(gpio_PTC3);
+
+controlador service_edit;
+
+IncrementService service_inc;
+
+CozimentoService service_coz;
+
+char key;
+int valor = 0;
+
+extern "C"{
+	void UART0_IRQHandler(){
+		buf = bt.receive8Bits();
+	}
+	void SysTick_Handler(void){
+		keyboard.update();
+		key = keyboard.getKey();
+		if (keyboard.keyIsPressed())
+		{
+			valor = key;
+		}
+		LCDTimerMonitor.doServiceFromIRQ();
+	}
+}
+
+void setup(){
+	bt.setInterruptMode(uart_Rx);
+	bt.setPriority(uart_Priority0);
+	bt.enableInterrupt();
+
+	LCDTimerMonitor.monMemory.setTempoGeral(tempo);
+	tempo[3] = 0;
+	tempo[2] = 0;
+	tempo[1] = 0;
+	tempo[0] = 0;
+	LCDTimerMonitor.monMemory.setTempoGeral(tempo);
+}
+
+int main(){
+
+	bool perm=true;
+	setup(); //! Configura o periférico bluetooth
+	while (1){
+		if(permission.isOn()){
+			perm=!perm;
+		}
+		if(perm){
+			LCDTimerMonitor.monMemory.setAction(pause);
+		}
+		else{
+			LCDTimerMonitor.monMemory.setAction(play);
+		}
+		*tempo=*LCDTimerMonitor.monMemory.getTempoGeral();
+		Us.atualiza(tempo[3]);
+		Ds.atualiza(tempo[2]);
+		Um.atualiza(tempo[1]);
+		Dm.atualiza(tempo[0]);
+		service_edit.maq_est(keyboard.keyIsPressed(), 1);
+		service_edit.select_service();
+		service_edit.do_service(&Dm, &Um, &Ds, &Us, valor);
+
+		service_inc.machineState(botao3.isOn(), botao7.isOn(), 1);
+		service_inc.selectService();
+		service_inc.doService(&Dm, &Um, &Ds, &Us);
+		//LCDTimerMonitor.monMemory.setIncrement(incTime);
+		//
+		if (aux != buf){
+			aux = buf;
+			service_coz.machineState(aux, 1);
+			service_coz.selectService();
+			service_coz.doService(&Dm, &Um, &Ds, &Us);
+		}
+		tempo[3] = Us.leValor();
+		tempo[2] = Ds.leValor();
+		tempo[1] = Um.leValor();
+		tempo[0] = Dm.leValor();
+		LCDTimerMonitor.monMemory.setTempoGeral(tempo);
+		//		LCDTimerMonitor.monMemory.setOperGeral(oper);
+		//		LCDTimerMonitor.monMemory.setCookGeral(ed);
+		//		display.monitora(Dm.leValor(), Um.leValor(), Ds.leValor(), Us.leValor());
+
+		motor.readAllInput();
+		motor.doService();
+		LCDTimerMonitor.doService();
+
+
+	}
+	return 0;
+}

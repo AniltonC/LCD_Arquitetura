@@ -26,6 +26,7 @@ S_UPPER_DEPS :=
 SUBDIRS := \
 Sources \
 Sources/Teclado \
+Sources/Motor \
 Sources/Dispositivos \
 Sources/Digitais \
 Sources/Bibliotecas/Systick \

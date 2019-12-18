@@ -8,18 +8,30 @@ Sources/main.o: ../Sources/main.cpp ../Includes/MKL25Z4.h \
  ../Sources/./Bibliotecas/Systick/mkl_Systick.h \
  ../Sources/./Dispositivos/led.h \
  ../Sources/./Dispositivos/../Bibliotecas/GPIO/mkl_GPIOPort.h \
- ../Sources/./Dispositivos/switch.h \
- ../Sources/./Dispositivos/displaySegments.h \
- ../Sources/./Dispositivos/../Bibliotecas/Delay/dsf_Delay_ocp.h \
- ../Sources/./Dispositivos/../Bibliotecas/Delay/dsf_TPM_ocp.h \
- ../Sources/./Dispositivos/decoder.h ../Sources/./Servicos/cozimento.h \
+ ../Sources/./Dispositivos/switch.h ../Sources/./Dispositivos/decoder.h \
+ ../Sources/./Servicos/cozimento.h \
  ../Sources/./Servicos/../Digitais/registrador.h \
+ ../Sources/./Servicos/../Classes/digital.h \
+ ../Sources/./Servicos/../Classes/devices.h \
+ ../Sources/./Servicos/../Classes/../Bibliotecas/GPIO/mkl_GPIOPort.h \
+ ../Sources/./Servicos/../Classes/../Bibliotecas/I2C/mkl_LCD.h \
+ ../Sources/./Servicos/../Classes/../Bibliotecas/I2C/mkl_I2CPort.h \
+ ../Sources/./Servicos/../Classes/../Bibliotecas/I2C/mkl_I2C.h \
  ../Sources/./Servicos/editService.h \
- ../Sources/./Servicos/incrementService.h \
+ ../Sources/./Servicos/incrementService.h ../Sources/./Classes/services.h \
+ ../Sources/./Classes/devices.h ../Sources/./Classes/digital.h \
+ ../Sources/./Classes/../Bibliotecas/GPIO/mkl_GPIOPort.h \
+ ../Sources/./Classes/monitor.h ../Sources/./Classes/services.h \
+ ../Sources/./Classes/devices.h \
  ../Sources/../Includes/mkl_HC06BluetoothSlave.h \
  ../Sources/../Includes/mkl_UARTPort.h ../Sources/../Includes/mkl_UART.h \
  ../Sources/../Includes/MKL25Z4.h \
- ../Sources/../Includes/mkl_UARTInterrupt.h
+ ../Sources/../Includes/mkl_UARTInterrupt.h \
+ ../Sources/Motor/classesComunicao.h ../Sources/Motor/classesDigitais.h \
+ ../Sources/Motor/classesDispositivos.h \
+ ../Sources/Motor/mkl_TPMPulseWidthModulation.h \
+ ../Sources/Motor/mkl_TPM.h ../Sources/Motor/../Dispositivos/switch.h \
+ ../Sources/Motor/../Dispositivos/led.h
 
 ../Includes/MKL25Z4.h:
 
@@ -47,21 +59,41 @@ Sources/main.o: ../Sources/main.cpp ../Includes/MKL25Z4.h \
 
 ../Sources/./Dispositivos/switch.h:
 
-../Sources/./Dispositivos/displaySegments.h:
-
-../Sources/./Dispositivos/../Bibliotecas/Delay/dsf_Delay_ocp.h:
-
-../Sources/./Dispositivos/../Bibliotecas/Delay/dsf_TPM_ocp.h:
-
 ../Sources/./Dispositivos/decoder.h:
 
 ../Sources/./Servicos/cozimento.h:
 
 ../Sources/./Servicos/../Digitais/registrador.h:
 
+../Sources/./Servicos/../Classes/digital.h:
+
+../Sources/./Servicos/../Classes/devices.h:
+
+../Sources/./Servicos/../Classes/../Bibliotecas/GPIO/mkl_GPIOPort.h:
+
+../Sources/./Servicos/../Classes/../Bibliotecas/I2C/mkl_LCD.h:
+
+../Sources/./Servicos/../Classes/../Bibliotecas/I2C/mkl_I2CPort.h:
+
+../Sources/./Servicos/../Classes/../Bibliotecas/I2C/mkl_I2C.h:
+
 ../Sources/./Servicos/editService.h:
 
 ../Sources/./Servicos/incrementService.h:
+
+../Sources/./Classes/services.h:
+
+../Sources/./Classes/devices.h:
+
+../Sources/./Classes/digital.h:
+
+../Sources/./Classes/../Bibliotecas/GPIO/mkl_GPIOPort.h:
+
+../Sources/./Classes/monitor.h:
+
+../Sources/./Classes/services.h:
+
+../Sources/./Classes/devices.h:
 
 ../Sources/../Includes/mkl_HC06BluetoothSlave.h:
 
@@ -72,3 +104,17 @@ Sources/main.o: ../Sources/main.cpp ../Includes/MKL25Z4.h \
 ../Sources/../Includes/MKL25Z4.h:
 
 ../Sources/../Includes/mkl_UARTInterrupt.h:
+
+../Sources/Motor/classesComunicao.h:
+
+../Sources/Motor/classesDigitais.h:
+
+../Sources/Motor/classesDispositivos.h:
+
+../Sources/Motor/mkl_TPMPulseWidthModulation.h:
+
+../Sources/Motor/mkl_TPM.h:
+
+../Sources/Motor/../Dispositivos/switch.h:
+
+../Sources/Motor/../Dispositivos/led.h:
