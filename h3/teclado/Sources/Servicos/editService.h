@@ -10,6 +10,7 @@
 
 #include "../Digitais/registrador.h"
 #include "../Classes/digital.h"
+#include "../Classes/monitor.h"
 typedef enum
 {
     wait_for_full = 0,
@@ -28,15 +29,17 @@ private:
     bool pede_permissao;
     bool finish;
     bool contagem;
+    MonitorLCD *LCD;
 
 public:
-    explicit controlador()
+    explicit controlador(MonitorLCD *param_lcd)
     {
         atual = wait_for_full;
         servico = 0;
         pede_permissao = 0;
         finish = 0;
         contagem = 0;
+        LCD = param_lcd;
     }
 
     void maq_est(bool press, bool permission)
@@ -105,7 +108,7 @@ public:
         }
     }
 
-    void do_service(registrador *four, registrador *three, registrador *two, registrador *one, int key, cookOption *tipo)
+    void do_service(registrador *four, registrador *three, registrador *two, registrador *one, int key)
     {
         if (servico == 0)
         {
@@ -119,13 +122,14 @@ public:
         }
         else if (servico == 2)
         {
+            LCD->monMemory.setCookGeral(ed);
             pede_permissao = 0;
             finish = 0;
             four->atualiza(three->leValor());
             three->atualiza(two->leValor());
             two->atualiza(one->leValor());
             one->atualiza(key);
-            *tipo=ed;
+            //*tipo=ed;
         }
         else if (servico == 3)
         {

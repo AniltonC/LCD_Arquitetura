@@ -23,7 +23,6 @@ MonitorLCD LCDTimerMonitor = MonitorLCD();
 MonitorMotor Motor(gpio_PTC7, gpio_PTC0, tpm_PTD4, gpio_PTA1, gpio_PTA2, gpio_PTC3, gpio_PTC4, gpio_PTC5, gpio_PTC6, &LCDTimerMonitor);
 
 uint8_t tempo[4] = {1, 0, 0, 0};
-cookOption cookOpt = pp;
 
 mkl_HC06BluetoothSlave bt(uart0_PTD7, uart0_PTD6);
 char buf[20];
@@ -42,14 +41,16 @@ Switch botao3(gpio_PTA12), botao7(gpio_PTA4);
 
 //Switch permission(gpio_PTC3);
 
-controlador service_edit;
+controlador service_edit(&LCDTimerMonitor);
 
-IncrementService service_inc;
+IncrementService service_inc(&LCDTimerMonitor);
 
 CozimentoService service_coz;
 
 char key;
 int valor = 0;
+
+//bool inc3_pressed = 0, inc7_pressed = 0;
 
 extern "C"
 {
@@ -75,6 +76,7 @@ extern "C"
 		{
 			valor = key;
 		}
+
 		LCDTimerMonitor.doServiceFromIRQ();
 	}
 }
@@ -91,6 +93,8 @@ void setup()
 	tempo[1] = 0;
 	tempo[0] = 0;
 	LCDTimerMonitor.monMemory.setTempoGeral(tempo);
+	LCDTimerMonitor.monMemory.setCookGeral(i3);
+	LCDTimerMonitor.monMemory.setCookGeral(ed);
 }
 
 int main()
@@ -109,6 +113,8 @@ int main()
 		// 	Motor.setActionMotor(false);
 		// }
 
+		//inc3_pressed = botao3.isOn();
+		//inc7_pressed = botao7.isOn();
 
 		Us.atualiza(LCDTimerMonitor.monMemory.getTempoGeral()[3]);
 		Ds.atualiza(LCDTimerMonitor.monMemory.getTempoGeral()[2]);
@@ -116,34 +122,34 @@ int main()
 		Dm.atualiza(LCDTimerMonitor.monMemory.getTempoGeral()[0]);
 
 		Motor.readAllInput();
-		
+
 		service_edit.maq_est(keyboard.keyIsPressed(), 1);
 		service_edit.select_service();
-		service_edit.do_service(&Dm, &Um, &Ds, &Us, valor, &cookOpt);
+		service_edit.do_service(&Dm, &Um, &Ds, &Us, valor);
 
 		service_inc.machineState(botao3.isOn(), botao7.isOn(), 1);
 		service_inc.selectService();
-		service_inc.doService(&Dm, &Um, &Ds, &Us, &cookOpt);
+		service_inc.doService(&Dm, &Um, &Ds, &Us);
 		//LCDTimerMonitor.monMemory.setIncrement(incTime);
 		//
 
-		while (contador <= pos)
-		{
-			if (buf[contador] != service_coz.memoria)
-			{
-				if (buf[contador] == '5')
-				{
-					cont_blut = !cont_blut;
-				}
-				service_coz.machineState(buf[contador], 1);
-				service_coz.selectService();
-				service_coz.doService(&Dm, &Um, &Ds, &Us, &cookOpt);
-				contador = pos;
-			}
-			contador++;
-		}
-		contador = 0;
-		pos = 0;
+		// while (contador <= pos)
+		// {
+		// 	if (buf[contador] != service_coz.memoria)
+		// 	{
+		// 		if (buf[contador] == '5')
+		// 		{
+		// 			cont_blut = !cont_blut;
+		// 		}
+		// 		service_coz.machineState(buf[contador], 1);
+		// 		service_coz.selectService();
+		// 		service_coz.doService(&Dm, &Um, &Ds, &Us, &cookOpt);
+		// 		contador = pos;
+		// 	}
+		// 	contador++;
+		// }
+		// contador = 0;
+		// pos = 0;
 
 		tempo[3] = Us.leValor();
 		tempo[2] = Ds.leValor();
@@ -151,7 +157,6 @@ int main()
 		tempo[0] = Dm.leValor();
 		LCDTimerMonitor.monMemory.setTempoGeral(tempo);
 		//		LCDTimerMonitor.monMemory.setOperGeral(oper);
-		LCDTimerMonitor.monMemory.setCookGeral(cookOpt);
 
 		//
 		//		motor.readAllInput();

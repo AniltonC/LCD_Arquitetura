@@ -10,6 +10,7 @@
 
 #include "../Digitais/registrador.h"
 #include "../Classes/digital.h"
+#include "../Classes/monitor.h"
 typedef enum
 {
     wait_for_full2 = 0,
@@ -27,13 +28,15 @@ private:
     estados2 stateService;
     int valueIncrement;
     int servico;
+    MonitorLCD *LCD;
 
 public:
-    explicit IncrementService()
+    explicit IncrementService(MonitorLCD *param_lcd)
     {
         stateService = wait_for_full2;
         valueIncrement = 0;
         servico = 0;
+        LCD = param_lcd;
     }
 
     void recebeIncremento(registrador *reg4, registrador *reg3, registrador *reg2, registrador *reg1)
@@ -141,7 +144,7 @@ public:
         }
     }
 
-    void doService(registrador *reg4, registrador *reg3, registrador *reg2, registrador *reg1,cookOption *tipo)
+    void doService(registrador *reg4, registrador *reg3, registrador *reg2, registrador *reg1)
     {
         if (servico == 0)
         {
@@ -156,9 +159,12 @@ public:
         else if (servico == 2)
         {
             recebeIncremento(reg4, reg3, reg2, reg1);
-            *tipo=i7;
-            if(valueIncrement==3){
-            	*tipo=i3;
+            LCD->monMemory.setCookGeral(i7);
+            //*tipo = i7;
+            if (valueIncrement == 3)
+            {
+                //*tipo = i3;
+                LCD->monMemory.setCookGeral(i3);
             }
         }
         else

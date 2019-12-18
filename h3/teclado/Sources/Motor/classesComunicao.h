@@ -191,6 +191,7 @@ public:
         {
             LCD->monMemory.setCancelAction(cancel_signal);
             LCD->monMemory.setAction(pause);
+            LCD->monMemory.setCookGeral(ed);
             signalService.turnLamp(0);
             temp.off();
             turnOff();
