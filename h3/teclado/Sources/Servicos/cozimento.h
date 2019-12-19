@@ -165,12 +165,18 @@ public:
             }
             else if (operacao == 4)
             {
+                LCD->monMemory.cancelBT = 1;
                 reg4->atualiza(0);
                 reg3->atualiza(0);
                 reg2->atualiza(0);
                 reg1->atualiza(0);
                 LCD->monMemory.setCookGeral(ed);
+
                 //*tipo = ed;
+            }
+            else
+            {
+                LCD->monMemory.enableBT = 1;
             }
         }
         else

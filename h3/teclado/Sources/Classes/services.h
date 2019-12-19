@@ -79,6 +79,9 @@ public:
     {
     }
 
+    bool cancelBT;
+    bool enableBT;
+
     void setTempoGeral(uint8_t tempo[4])
     {
         for (uint8_t i = 0; i < 4; i++)

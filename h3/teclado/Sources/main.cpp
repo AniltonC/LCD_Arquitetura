@@ -24,7 +24,7 @@ MonitorMotor Motor(gpio_PTC7, gpio_PTC0, tpm_PTD4, gpio_PTA1, gpio_PTA2, gpio_PT
 
 uint8_t tempo[4] = {1, 0, 0, 0};
 
-//mkl_HC06BluetoothSlave bt(uart0_PTD7, uart0_PTD6);
+mkl_HC06BluetoothSlave bt(uart0_PTD7, uart0_PTD6);
 char buf[20];
 int pos = 0;
 
@@ -50,24 +50,22 @@ CozimentoService service_coz(&LCDTimerMonitor);
 char key;
 int valor = 0;
 
-//bool inc3_pressed = 0, inc7_pressed = 0;
-
 extern "C"
 {
-	// void UART0_IRQHandler()
-	// {
-	// 	if (pos < 20)
-	// 	{
-	// 		buf[pos] = bt.receive8Bits();
-	// 		pos++;
-	// 	}
-	// 	else
-	// 	{
-	// 		pos = 0;
-	// 		buf[pos] = bt.receive8Bits();
-	// 		pos++;
-	// 	}
-	// }
+	void UART0_IRQHandler()
+	{
+		if (pos < 20)
+		{
+			buf[pos] = bt.receive8Bits();
+			pos++;
+		}
+		else
+		{
+			pos = 0;
+			buf[pos] = bt.receive8Bits();
+			pos++;
+		}
+	}
 	void SysTick_Handler(void)
 	{
 		keyboard.update();
@@ -83,9 +81,9 @@ extern "C"
 
 void setup()
 {
-	// bt.setInterruptMode(uart_Rx);
-	// bt.setPriority(uart_Priority0);
-	// bt.enableInterrupt();
+	bt.setInterruptMode(uart_Rx);
+	bt.setPriority(uart_Priority0);
+	bt.enableInterrupt();
 
 	LCDTimerMonitor.monMemory.setTempoGeral(tempo);
 	tempo[3] = 0;
@@ -113,9 +111,6 @@ int main()
 		// 	Motor.setActionMotor(false);
 		// }
 
-		//inc3_pressed = botao3.isOn();
-		//inc7_pressed = botao7.isOn();
-
 		Us.atualiza(LCDTimerMonitor.monMemory.getTempoGeral()[3]);
 		Ds.atualiza(LCDTimerMonitor.monMemory.getTempoGeral()[2]);
 		Um.atualiza(LCDTimerMonitor.monMemory.getTempoGeral()[1]);
@@ -130,26 +125,24 @@ int main()
 		service_inc.machineState(botao3.isOn(), botao7.isOn(), 1);
 		service_inc.selectService();
 		service_inc.doService(&Dm, &Um, &Ds, &Us);
-		//LCDTimerMonitor.monMemory.setIncrement(incTime);
-		//
 
-		// while (contador <= pos)
-		// {
-		// 	if (buf[contador] != service_coz.memoria)
-		// 	{
-		// 		if (buf[contador] == '5')
-		// 		{
-		// 			cont_blut = !cont_blut;
-		// 		}
-		// 		service_coz.machineState(buf[contador], 1);
-		// 		service_coz.selectService();
-		// 		service_coz.doService(&Dm, &Um, &Ds, &Us);
-		// 		contador = pos;
-		// 	}
-		// 	contador++;
-		// }
-		// contador = 0;
-		// pos = 0;
+		while (contador <= pos)
+		{
+			if (buf[contador] != service_coz.memoria)
+			{
+				if (buf[contador] == '5')
+				{
+					cont_blut = !cont_blut;
+				}
+				service_coz.machineState(buf[contador], 1);
+				service_coz.selectService();
+				service_coz.doService(&Dm, &Um, &Ds, &Us);
+				contador = pos;
+			}
+			contador++;
+		}
+		contador = 0;
+		pos = 0;
 
 		tempo[3] = Us.leValor();
 		tempo[2] = Ds.leValor();

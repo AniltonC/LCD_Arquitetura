@@ -124,9 +124,10 @@ public:
         if (signalService.readDoor() == 0)
         {
             // Door closed, check play button, button played pressed?
-            if (controllerService.playPauseButton.isOn())
+            if (controllerService.playPauseButton.isOn() || LCD->monMemory.enableBT)
             {
                 //If play, pause otherwise if pause, play
+                LCD->monMemory.enableBT = 0;
                 play_signal = !play_signal;
             }
             door_signal = 0;
@@ -137,8 +138,9 @@ public:
         }
 
         // button cancel pressed?
-        if (controllerService.cancelButton.isOn())
+        if (controllerService.cancelButton.isOn() || LCD->monMemory.cancelBT)
         {
+            LCD->monMemory.cancelBT = 0;
             cancel_signal = 1;
         }
     };
