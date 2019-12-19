@@ -1,6 +1,7 @@
 #include "classesDigitais.h"
 #include "../Classes/digital.h"
 #include "../Classes/monitor.h"
+#include "../Classes/devices.h"
 
 class ControllerService
 {
@@ -93,6 +94,7 @@ private:
     bool door_signal;
     MonitorLCD *LCD;
     bool operationData[3] = {0, 0, 0};
+    Led fimLedServ = Led(gpio_PTB18);
 
 public:
     bool cancel_signal;
@@ -177,8 +179,19 @@ public:
         {
             signalService.turnLamp(0);
         }
-
+        /*
         if (LCD->monMemory.getFimLedAction())
+        {
+            LCD->monMemory.setAction(pause);
+            signalService.turnLamp(1);
+            signalService.activeBuzzer();
+            turnOff();
+            temp.off();
+            play_signal = 0;
+            LCD->monMemory.setIsFimTimer(0);
+        }
+*/
+        if (!fimLedServ.getLed())
         {
             LCD->monMemory.setAction(pause);
             signalService.turnLamp(1);

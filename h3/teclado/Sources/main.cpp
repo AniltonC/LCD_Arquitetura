@@ -144,16 +144,12 @@ int main()
 		contador = 0;
 		pos = 0;
 
-		tempo[3] = Us.leValor();
-		tempo[2] = Ds.leValor();
-		tempo[1] = Um.leValor();
-		tempo[0] = Dm.leValor();
-		LCDTimerMonitor.monMemory.setTempoGeral(tempo);
-		//		LCDTimerMonitor.monMemory.setOperGeral(oper);
+		//tempo[3] = Us.leValor();
+		//tempo[2] = Ds.leValor();
+		//tempo[1] = Um.leValor();
+		//tempo[0] = Dm.leValor();
+		//LCDTimerMonitor.monMemory.setTempoGeral(tempo);
 
-		//
-		//		motor.readAllInput();
-		//		motor.doService();
 		Motor.doService();
 		LCDTimerMonitor.doService();
 	}

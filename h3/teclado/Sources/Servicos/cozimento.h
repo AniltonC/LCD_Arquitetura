@@ -31,6 +31,8 @@ private:
     int servico;
     MonitorLCD *LCD;
 
+    uint8_t tempoUpdate[4] = {0, 0, 0, 0};
+
 public:
     char memoria;
     explicit CozimentoService(MonitorLCD *param_lcd)
@@ -142,6 +144,14 @@ public:
                 reg3->atualiza(1);
                 reg2->atualiza(0);
                 reg1->atualiza(1);
+
+                tempoUpdate[3] = reg1->leValor();
+                tempoUpdate[2] = reg2->leValor();
+                tempoUpdate[1] = reg3->leValor();
+                tempoUpdate[0] = reg4->leValor();
+
+                LCD->monMemory.setTempoGeral(tempoUpdate);
+
                 //*tipo = pz;
                 LCD->monMemory.setCookGeral(pz);
             }
@@ -151,6 +161,13 @@ public:
                 reg3->atualiza(0);
                 reg2->atualiza(3);
                 reg1->atualiza(0);
+
+                tempoUpdate[3] = reg1->leValor();
+                tempoUpdate[2] = reg2->leValor();
+                tempoUpdate[1] = reg3->leValor();
+                tempoUpdate[0] = reg4->leValor();
+
+                LCD->monMemory.setTempoGeral(tempoUpdate);
                 //*tipo = pp;
                 LCD->monMemory.setCookGeral(pp);
             }
@@ -160,6 +177,13 @@ public:
                 reg3->atualiza(2);
                 reg2->atualiza(0);
                 reg1->atualiza(2);
+
+                tempoUpdate[3] = reg1->leValor();
+                tempoUpdate[2] = reg2->leValor();
+                tempoUpdate[1] = reg3->leValor();
+                tempoUpdate[0] = reg4->leValor();
+
+                LCD->monMemory.setTempoGeral(tempoUpdate);
                 //*tipo = la;
                 LCD->monMemory.setCookGeral(la);
             }

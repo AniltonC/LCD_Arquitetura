@@ -29,6 +29,7 @@ private:
     int valueIncrement;
     int servico;
     MonitorLCD *LCD;
+    uint8_t tempoUpdate[4] = {0, 0, 0, 0};
 
 public:
     explicit IncrementService(MonitorLCD *param_lcd)
@@ -166,6 +167,21 @@ public:
                 //*tipo = i3;
                 LCD->monMemory.setCookGeral(i3);
             }
+
+            tempoUpdate[3] = reg1->leValor();
+            tempoUpdate[2] = reg2->leValor();
+            tempoUpdate[1] = reg3->leValor();
+            tempoUpdate[0] = reg4->leValor();
+
+            if (LCD->monMemory.getAction() == play)
+            {
+                LCD->monMemory.setAction(pause);
+                LCD->doService();
+                LCD->monMemory.setTempoGeral(tempoUpdate);
+                LCD->monMemory.setAction(play);
+            }
+            else
+                LCD->monMemory.setTempoGeral(tempoUpdate);
         }
         else
         {

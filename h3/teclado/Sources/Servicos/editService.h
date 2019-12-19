@@ -31,6 +31,8 @@ private:
     bool contagem;
     MonitorLCD *LCD;
 
+    uint8_t tempoUpdate[4] = {0, 0, 0, 0};
+
 public:
     explicit controlador(MonitorLCD *param_lcd)
     {
@@ -129,6 +131,13 @@ public:
             three->atualiza(two->leValor());
             two->atualiza(one->leValor());
             one->atualiza(key);
+
+            tempoUpdate[3] = one->leValor();
+            tempoUpdate[2] = two->leValor();
+            tempoUpdate[1] = three->leValor();
+            tempoUpdate[0] = four->leValor();
+
+            LCD->monMemory.setTempoGeral(tempoUpdate);
             //*tipo=ed;
         }
         else if (servico == 3)
