@@ -24,7 +24,7 @@ MonitorMotor Motor(gpio_PTC7, gpio_PTC0, tpm_PTD4, gpio_PTA1, gpio_PTA2, gpio_PT
 
 uint8_t tempo[4] = {1, 0, 0, 0};
 
-mkl_HC06BluetoothSlave bt(uart0_PTD7, uart0_PTD6);
+//mkl_HC06BluetoothSlave bt(uart0_PTD7, uart0_PTD6);
 char buf[20];
 int pos = 0;
 
@@ -37,7 +37,7 @@ registrador Ds(0);
 registrador Um(0);
 registrador Dm(0);
 //
-Switch botao3(gpio_PTA12), botao7(gpio_PTA4);
+Switch botao3(gpio_PTA12), botao7(gpio_PTA1);
 
 //Switch permission(gpio_PTC3);
 
@@ -45,7 +45,7 @@ controlador service_edit(&LCDTimerMonitor);
 
 IncrementService service_inc(&LCDTimerMonitor);
 
-CozimentoService service_coz;
+CozimentoService service_coz(&LCDTimerMonitor);
 
 char key;
 int valor = 0;
@@ -54,20 +54,20 @@ int valor = 0;
 
 extern "C"
 {
-	void UART0_IRQHandler()
-	{
-		if (pos < 20)
-		{
-			buf[pos] = bt.receive8Bits();
-			pos++;
-		}
-		else
-		{
-			pos = 0;
-			buf[pos] = bt.receive8Bits();
-			pos++;
-		}
-	}
+	// void UART0_IRQHandler()
+	// {
+	// 	if (pos < 20)
+	// 	{
+	// 		buf[pos] = bt.receive8Bits();
+	// 		pos++;
+	// 	}
+	// 	else
+	// 	{
+	// 		pos = 0;
+	// 		buf[pos] = bt.receive8Bits();
+	// 		pos++;
+	// 	}
+	// }
 	void SysTick_Handler(void)
 	{
 		keyboard.update();
@@ -83,9 +83,9 @@ extern "C"
 
 void setup()
 {
-	bt.setInterruptMode(uart_Rx);
-	bt.setPriority(uart_Priority0);
-	bt.enableInterrupt();
+	// bt.setInterruptMode(uart_Rx);
+	// bt.setPriority(uart_Priority0);
+	// bt.enableInterrupt();
 
 	LCDTimerMonitor.monMemory.setTempoGeral(tempo);
 	tempo[3] = 0;
@@ -143,7 +143,7 @@ int main()
 		// 		}
 		// 		service_coz.machineState(buf[contador], 1);
 		// 		service_coz.selectService();
-		// 		service_coz.doService(&Dm, &Um, &Ds, &Us, &cookOpt);
+		// 		service_coz.doService(&Dm, &Um, &Ds, &Us);
 		// 		contador = pos;
 		// 	}
 		// 	contador++;

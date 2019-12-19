@@ -650,3 +650,95 @@ make: Nothing to be done for `all'.
 14:17:30 **** Incremental Build of configuration Debug for project LCD ****
 make all 
 make: Nothing to be done for `all'.
+19:13:37 **** Incremental Build of configuration Debug for project LCD ****
+make all 
+Building file: ../Sources/Bibliotecas/Systick/mkl_Systick.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/Bibliotecas/Systick/mkl_Systick.d" -MT"Sources/Bibliotecas/Systick/mkl_Systick.o" -c -o "Sources/Bibliotecas/Systick/mkl_Systick.o" "../Sources/Bibliotecas/Systick/mkl_Systick.cpp"
+Finished building: ../Sources/Bibliotecas/Systick/mkl_Systick.cpp
+ 
+Building file: ../Sources/Bibliotecas/Systick/mkl_SystickPeriodicInterrupt.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/Bibliotecas/Systick/mkl_SystickPeriodicInterrupt.d" -MT"Sources/Bibliotecas/Systick/mkl_SystickPeriodicInterrupt.o" -c -o "Sources/Bibliotecas/Systick/mkl_SystickPeriodicInterrupt.o" "../Sources/Bibliotecas/Systick/mkl_SystickPeriodicInterrupt.cpp"
+Finished building: ../Sources/Bibliotecas/Systick/mkl_SystickPeriodicInterrupt.cpp
+ 
+Building file: ../Sources/Bibliotecas/I2C/mkl_I2C.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/Bibliotecas/I2C/mkl_I2C.d" -MT"Sources/Bibliotecas/I2C/mkl_I2C.o" -c -o "Sources/Bibliotecas/I2C/mkl_I2C.o" "../Sources/Bibliotecas/I2C/mkl_I2C.cpp"
+Finished building: ../Sources/Bibliotecas/I2C/mkl_I2C.cpp
+ 
+Building file: ../Sources/Bibliotecas/I2C/mkl_I2CPort.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/Bibliotecas/I2C/mkl_I2CPort.d" -MT"Sources/Bibliotecas/I2C/mkl_I2CPort.o" -c -o "Sources/Bibliotecas/I2C/mkl_I2CPort.o" "../Sources/Bibliotecas/I2C/mkl_I2CPort.cpp"
+Finished building: ../Sources/Bibliotecas/I2C/mkl_I2CPort.cpp
+ 
+Building file: ../Sources/Bibliotecas/I2C/mkl_LCD.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/Bibliotecas/I2C/mkl_LCD.d" -MT"Sources/Bibliotecas/I2C/mkl_LCD.o" -c -o "Sources/Bibliotecas/I2C/mkl_LCD.o" "../Sources/Bibliotecas/I2C/mkl_LCD.cpp"
+Finished building: ../Sources/Bibliotecas/I2C/mkl_LCD.cpp
+ 
+Building file: ../Sources/Bibliotecas/GPIO/mkl_GPIO.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/Bibliotecas/GPIO/mkl_GPIO.d" -MT"Sources/Bibliotecas/GPIO/mkl_GPIO.o" -c -o "Sources/Bibliotecas/GPIO/mkl_GPIO.o" "../Sources/Bibliotecas/GPIO/mkl_GPIO.cpp"
+Finished building: ../Sources/Bibliotecas/GPIO/mkl_GPIO.cpp
+ 
+Building file: ../Sources/Bibliotecas/GPIO/mkl_GPIOPort.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/Bibliotecas/GPIO/mkl_GPIOPort.d" -MT"Sources/Bibliotecas/GPIO/mkl_GPIOPort.o" -c -o "Sources/Bibliotecas/GPIO/mkl_GPIOPort.o" "../Sources/Bibliotecas/GPIO/mkl_GPIOPort.cpp"
+Finished building: ../Sources/Bibliotecas/GPIO/mkl_GPIOPort.cpp
+ 
+Building file: ../Sources/main.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/main.d" -MT"Sources/main.o" -c -o "Sources/main.o" "../Sources/main.cpp"
+Finished building: ../Sources/main.cpp
+ 
+Building file: ../Sources/nomain.cpp
+Invoking: Cross ARM C++ Compiler
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=gnu++11 -fabi-version=0 -MMD -MP -MF"Sources/nomain.d" -MT"Sources/nomain.o" -c -o "Sources/nomain.o" "../Sources/nomain.cpp"
+Finished building: ../Sources/nomain.cpp
+ 
+Building file: ../Project_Settings/Startup_Code/startup_MKL25Z4.S
+Invoking: Cross ARM GNU Assembler
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -x assembler-with-cpp -MMD -MP -MF"Project_Settings/Startup_Code/startup_MKL25Z4.d" -MT"Project_Settings/Startup_Code/startup_MKL25Z4.o" -c -o "Project_Settings/Startup_Code/startup_MKL25Z4.o" "../Project_Settings/Startup_Code/startup_MKL25Z4.S"
+Finished building: ../Project_Settings/Startup_Code/startup_MKL25Z4.S
+ 
+Building file: ../Project_Settings/Startup_Code/system_MKL25Z4.c
+Invoking: Cross ARM C Compiler
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"../Sources" -I"../Includes" -std=c99 -MMD -MP -MF"Project_Settings/Startup_Code/system_MKL25Z4.d" -MT"Project_Settings/Startup_Code/system_MKL25Z4.o" -c -o "Project_Settings/Startup_Code/system_MKL25Z4.o" "../Project_Settings/Startup_Code/system_MKL25Z4.c"
+Finished building: ../Project_Settings/Startup_Code/system_MKL25Z4.c
+ 
+Building target: LCD.elf
+Invoking: Cross ARM C++ Linker
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"/home/anilton/Desktop/GitHub_Repo/LCD_Arquitetura/h4LCD/LCD/Project_Settings/Linker_Files" -Wl,-Map,"LCD.map" -specs=nano.specs -specs=nosys.specs -o "LCD.elf"  ./Sources/Bibliotecas/Systick/mkl_Systick.o ./Sources/Bibliotecas/Systick/mkl_SystickPeriodicInterrupt.o  ./Sources/Bibliotecas/I2C/mkl_I2C.o ./Sources/Bibliotecas/I2C/mkl_I2CPort.o ./Sources/Bibliotecas/I2C/mkl_LCD.o  ./Sources/Bibliotecas/GPIO/mkl_GPIO.o ./Sources/Bibliotecas/GPIO/mkl_GPIOPort.o  ./Sources/main.o ./Sources/nomain.o  ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o   
+Finished building target: LCD.elf
+ 
+19:13:44 **** Incremental Build of configuration Debug for project LCD ****
+make all 
+make: Nothing to be done for `all'.
+19:15:25 **** Incremental Build of configuration Debug for project LCD ****
+make all 
+make: Nothing to be done for `all'.
+19:15:28 **** Incremental Build of configuration Debug for project LCD ****
+make all 
+make: Nothing to be done for `all'.
+19:15:31 **** Incremental Build of configuration Debug for project LCD ****
+make all 
+make: Nothing to be done for `all'.
+19:15:51 **** Incremental Build of configuration Debug for project LCD ****
+make all 
+make: Nothing to be done for `all'.
+19:16:52 **** Incremental Build of configuration Debug for project LCD ****
+make all 
+make: Nothing to be done for `all'.
+19:17:16 **** Incremental Build of configuration Debug for project LCD ****
+make all 
+make: Nothing to be done for `all'.
+19:18:12 **** Incremental Build of configuration Debug for project LCD ****
+make all 
+make: Nothing to be done for `all'.
+19:18:14 **** Incremental Build of configuration Debug for project LCD ****
+make all 
+make: Nothing to be done for `all'.
+19:20:18 **** Incremental Build of configuration Debug for project LCD ****
+make all 
+make: Nothing to be done for `all'.

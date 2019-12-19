@@ -17,10 +17,10 @@ Sources/main.o: ../Sources/main.cpp ../Includes/MKL25Z4.h \
  ../Sources/./Servicos/../Classes/../Bibliotecas/I2C/mkl_LCD.h \
  ../Sources/./Servicos/../Classes/../Bibliotecas/I2C/mkl_I2CPort.h \
  ../Sources/./Servicos/../Classes/../Bibliotecas/I2C/mkl_I2C.h \
- ../Sources/./Servicos/editService.h \
  ../Sources/./Servicos/../Classes/monitor.h \
  ../Sources/./Servicos/../Classes/services.h \
  ../Sources/./Servicos/../Classes/digital.h \
+ ../Sources/./Servicos/editService.h \
  ../Sources/./Servicos/incrementService.h ../Sources/./Classes/services.h \
  ../Sources/./Classes/monitor.h ../Sources/./Classes/devices.h \
  ../Sources/../Includes/mkl_HC06BluetoothSlave.h \
@@ -79,13 +79,13 @@ Sources/main.o: ../Sources/main.cpp ../Includes/MKL25Z4.h \
 
 ../Sources/./Servicos/../Classes/../Bibliotecas/I2C/mkl_I2C.h:
 
-../Sources/./Servicos/editService.h:
-
 ../Sources/./Servicos/../Classes/monitor.h:
 
 ../Sources/./Servicos/../Classes/services.h:
 
 ../Sources/./Servicos/../Classes/digital.h:
+
+../Sources/./Servicos/editService.h:
 
 ../Sources/./Servicos/incrementService.h:
 

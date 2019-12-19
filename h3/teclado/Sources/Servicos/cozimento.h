@@ -10,6 +10,8 @@
 #include "stdint.h"
 #include "../Digitais/registrador.h"
 #include "../Classes/digital.h"
+#include "../Classes/monitor.h"
+
 typedef enum
 {
     H3_wait_for_full = 0,
@@ -27,15 +29,17 @@ private:
     estados_bluetooth stateService;
     int operacao;
     int servico;
+    MonitorLCD *LCD;
 
 public:
     char memoria;
-    explicit CozimentoService()
+    explicit CozimentoService(MonitorLCD *param_lcd)
     {
         stateService = H3_wait_for_full;
         servico = 0;
         operacao = 0;
         memoria = '0';
+        LCD = param_lcd;
     }
 
     void machineState(char chave, bool permission)
@@ -116,7 +120,7 @@ public:
         }
     }
 
-    void doService(registrador *reg4, registrador *reg3, registrador *reg2, registrador *reg1, cookOption *tipo)
+    void doService(registrador *reg4, registrador *reg3, registrador *reg2, registrador *reg1)
     {
         if (servico == 0)
         {
@@ -135,18 +139,20 @@ public:
             if (operacao == 1)
             {
                 reg4->atualiza(0);
-                reg3->atualiza(0);
-                reg2->atualiza(3);
-                reg1->atualiza(0);
-                *tipo = pz;
+                reg3->atualiza(1);
+                reg2->atualiza(0);
+                reg1->atualiza(1);
+                //*tipo = pz;
+                LCD->monMemory.setCookGeral(pz);
             }
             else if (operacao == 2)
             {
                 reg4->atualiza(0);
-                reg3->atualiza(1);
-                reg2->atualiza(0);
-                reg1->atualiza(1);
-                *tipo = pp;
+                reg3->atualiza(0);
+                reg2->atualiza(3);
+                reg1->atualiza(0);
+                //*tipo = pp;
+                LCD->monMemory.setCookGeral(pp);
             }
             else if (operacao == 3)
             {
@@ -154,7 +160,8 @@ public:
                 reg3->atualiza(2);
                 reg2->atualiza(0);
                 reg1->atualiza(2);
-                *tipo = la;
+                //*tipo = la;
+                LCD->monMemory.setCookGeral(la);
             }
             else if (operacao == 4)
             {
@@ -162,7 +169,8 @@ public:
                 reg3->atualiza(0);
                 reg2->atualiza(0);
                 reg1->atualiza(0);
-                *tipo = ed;
+                LCD->monMemory.setCookGeral(ed);
+                //*tipo = ed;
             }
         }
         else
